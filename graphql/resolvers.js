@@ -6,10 +6,24 @@ module.exports = {
     return {
       quotes: quotes.map((q) => {
         return {
-          ...q._doc,
-          _id: q._id.toString()
+          ...q.toJSON(),
+          _id: q._id.toString(),
         };
       }),
+    };
+  },
+  createQuote: async ({ quoteInput }) => {
+    const { quote, author } = quoteInput;
+    const newQuote = new Quote({
+      quote,
+      author,
+    });
+    const createdQuote = await newQuote.save();
+    return {
+      ...createdQuote.toJSON(),
+      _id: createdQuote._id.toString(),
+      quote: createdQuote.quote,
+      author: createdQuote.author,
     };
   },
 };

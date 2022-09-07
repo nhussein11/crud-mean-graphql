@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
-const { graphql } = require("graphql");
+
 
 const graphqlSchema = require('./graphql/schema')
 const graphqlResolver = require('./graphql/resolvers')
@@ -27,7 +27,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    app.listen(4000, console.log("Connectiong to port 3000"));
+    app.listen(4000, console.log("Connecting to port 3000"));
   })
   .catch((error) => console.error("MongoDB connection failed:", error.message))
   
