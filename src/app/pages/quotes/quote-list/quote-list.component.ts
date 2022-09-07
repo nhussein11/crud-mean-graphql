@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Quote } from 'src/app/models/Quote';
 import { QuotesService } from 'src/app/services/quotes.service';
@@ -14,8 +14,6 @@ export class QuoteListComponent {
 
   constructor(private _quoteService: QuotesService) {
     this.quotes$ = this._quoteService.quotes
-    console.log(this.quotes$)
-    
   }
 
 }
