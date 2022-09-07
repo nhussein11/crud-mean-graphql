@@ -1,5 +1,6 @@
+<p>working</p>
 <div>
-    <div *ngFor="let quote of quotes">
-        <app-quote-card></app-quote-card>
+    <div *ngFor="let quote of quotes$ | async">
+        <app-quote-card [quote]="quote"></app-quote-card>
     </div>
 </div>
