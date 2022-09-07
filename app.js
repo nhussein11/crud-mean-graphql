@@ -27,7 +27,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    app.listen(4000, console.log("Connecting to port 3000"));
+    app.listen(4000, console.log("Connecting to port 4000"));
   })
   .catch((error) => console.error("MongoDB connection failed:", error.message))
   
