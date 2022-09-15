@@ -1,4 +1,3 @@
-const { create } = require("../models/Quote");
 const Quote = require("../models/Quote");
 const User = require("../models/User");
 
