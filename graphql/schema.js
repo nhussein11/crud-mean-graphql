@@ -6,8 +6,18 @@ module.exports = buildSchema(`
         quote: String!
         author: String!
     }
+    type User {
+        _id: ID!
+        name: String!
+        address: String!
+        email: String!
+        password: String!
+    }
     type QuoteData {
         quotes: [Quote!]!
+    }
+    type UserData {
+        users: [User!]!
     }
     input QuoteInputData {
         quote: String!
@@ -15,6 +25,7 @@ module.exports = buildSchema(`
     }
     type RootQuery {
         quotes: QuoteData!
+        users: UserData!
     }
     type RootMutation {
         createQuote(quoteInput: QuoteInputData): Quote!
