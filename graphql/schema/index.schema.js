@@ -1,6 +1,6 @@
 const { buildSchema } = require("graphql");
-const Quote = require("./Quote")
-const User = require("./User")
+const Quote = require("./Quote.schema")
+const User = require("./User.schema")
 
 const types = [];
 const queries = [];
