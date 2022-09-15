@@ -4,9 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 
-
-const graphqlSchema = require('./graphql/schema')
-const graphqlResolver = require('./graphql/resolvers')
+const graphqlSchema = require("./graphql/schema/index");
+const graphqlResolver = require("./graphql/resolvers/index.resolver");
 
 const app = express();
 
@@ -29,6 +28,6 @@ mongoose
   .then(() => {
     app.listen(4000, console.log("Connecting to port 4000"));
   })
-  .catch((error) => console.error("MongoDB connection failed:", error.message))
-  
+  .catch((error) => console.error("MongoDB connection failed:", error.message));
+
 console.log("Running a GraphQL API server at http://localhost:4000/graphql");
