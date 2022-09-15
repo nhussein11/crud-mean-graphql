@@ -13,21 +13,27 @@ module.exports = buildSchema(`
         email: String!
         password: String!
     }
-    type UserData {
-        user: [User!]!
-    }
     input QuoteInputData {
         quote: String!
         author: String!
     }
+    input UserInputData{
+        name: String!
+        address: String!
+        email: String!
+        password: String!
+    }
     type RootQuery {
         allQuotes: [Quote!]!
-        users: [User!]!
+        allUsers: [User!]!
     }
     type RootMutation {
         createQuote(quoteInput: QuoteInputData): Quote!
         updateQuote(id: ID!, quoteInput: QuoteInputData): Quote!
         deleteQuote(id: ID!): Quote!
+        createUser(userInput: UserInputData) : User!
+        updateUser(id: ID!, userInput: UserInputData) : User!
+        deleteUser(id: ID!) : User!
     }
     schema {
         query: RootQuery
