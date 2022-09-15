@@ -1,16 +1,9 @@
 const Quote = require("../models/Quote");
 
 module.exports = {
-  quotes: async () => {
+  allQuotes: async () => {
     const quotes = await Quote.find();
-    return {
-      quotes: quotes.map((q) => {
-        return {
-          ...q.toJSON(),
-          _id: q._id.toString(),
-        };
-      }),
-    };
+    return quotes;
   },
   createQuote: async ({ quoteInput }) => {
     const { quote, author } = quoteInput;
