@@ -1,8 +1,8 @@
-<div>
-  <app-ui-author-input
-    [author]="$any(newForm.get('author'))"
-  ></app-ui-author-input>
+<form [formGroup]="newForm">
+  <app-ui-author-input 
+    [author]="newForm.controls['author'] | formControl">
+  </app-ui-author-input>
   <app-ui-quote-textarea
-    [quoteTextArea]="$any(newForm.get('quote'))"
+    [quoteTextArea]="newForm.controls['quote'] | formControl"
   ></app-ui-quote-textarea>
-</div>
+</form>
