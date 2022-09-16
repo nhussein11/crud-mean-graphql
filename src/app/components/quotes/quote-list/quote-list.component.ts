@@ -22,8 +22,8 @@ export class QuoteListComponent {
   }
   createNewQuote() {
     const dialogReference = this._dialogService.open(NewQuoteComponent, {
-      header: 'Choose a Car',
-      width: '70%',
+      header: 'Create a new quote!',
+      width: '30%',
     });
   }
 }

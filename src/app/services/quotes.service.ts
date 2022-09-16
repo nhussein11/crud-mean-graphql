@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Quote } from '../models/Quote';
 
 const QUOTES = gql`
   {
-    quotes {
-      quotes {
-        _id
-        quote
-        author
-      }
+    allQuotes{
+      author
+      quote
     }
   }
 `;
@@ -40,11 +37,9 @@ export class QuotesService {
         query: QUOTES,
       })
       .valueChanges.pipe(
-        map(({ data }: any) => {
-          const {
-            quotes: { quotes },
-          } = data;
-          this.quotesData = quotes
+        map(({data} : any) => {
+          const {allQuotes} = data
+          this.quotesData = allQuotes
         })
       )
       .subscribe();

@@ -22,6 +22,7 @@
     "apollo-angular": "^4.0.1",
     "font-awesome": "^4.7.0",
     "graphql": "^16",
+    "primeflex": "^3.2.1",
     "primeicons": "^5.0.0",
     "primeng": "^14.0.2",
     "rxjs": "~7.5.0",

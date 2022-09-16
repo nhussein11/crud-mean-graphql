@@ -1,12 +1,16 @@
 <p-button
-  label="{{ newQuote ? 'Save' : 'New Quote' }}"
+  label="'New Quote'"
   icon="pi pi-plus"
-  styleClass="p-button-md"
+  styleClass="p-button-md my-5 mx-5"
   (onClick)="createNewQuote()"
 ></p-button>
 <app-new-quote *ngIf="newQuote"></app-new-quote>
 <div>
-  <div *ngFor="let quote of quotes$ | async">
-    <app-quote-card [quote]="quote"></app-quote-card>
+  <div class="card">
+    <div class="flex flex-wrap">
+        <div *ngFor="let quote of quotes$ | async" class="ml-6">
+        <app-quote-card [quote]="quote"></app-quote-card>
+      </div>
+    </div>
   </div>
 </div>
