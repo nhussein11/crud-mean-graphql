@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { QuoteListRoutingModule } from './quote-list-routing.module';
 import { QuoteListComponent } from './quote-list.component';
 import { QuoteCardModule } from '../quote-card/quote-card.module';
-import { NewQuoteModule } from '../new-quote/new-quote.module';
+import { QuoteModule } from '../quote/quote.module';
 import { PrimengModule } from 'src/app/primeng/primeng.module';
 
 
@@ -16,7 +16,7 @@ import { PrimengModule } from 'src/app/primeng/primeng.module';
     CommonModule,
     QuoteListRoutingModule,
     QuoteCardModule,
-    NewQuoteModule,
+    QuoteModule,
     PrimengModule
   ]
 })

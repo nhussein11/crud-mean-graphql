@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NewQuoteComponent } from './new-quote.component';
 import { PrimengModule } from 'src/app/primeng/primeng.module';
 import { UiModule } from 'src/app/ui/ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { QuoteComponent } from './quote.component';
 
 @NgModule({
-  declarations: [NewQuoteComponent],
+  declarations: [QuoteComponent],
   imports: [
     CommonModule,
     PrimengModule,
@@ -16,6 +16,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [NewQuoteComponent],
+  exports: [QuoteComponent],
 })
-export class NewQuoteModule {}
+export class QuoteModule {}

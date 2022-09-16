@@ -3,7 +3,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
 import { Quote } from 'src/app/models/Quote';
 import { QuotesService } from 'src/app/services/quotes.service';
-import { NewQuoteComponent } from '../new-quote/new-quote.component';
+import { QuoteComponent } from '../quote/quote.component';
 
 @Component({
   selector: 'app-quote-list',
@@ -21,7 +21,7 @@ export class QuoteListComponent {
     this.quotes$ = this._quoteService.quotes;
   }
   createNewQuote() {
-    const dialogReference = this._dialogService.open(NewQuoteComponent, {
+    const dialogReference = this._dialogService.open(QuoteComponent, {
       header: 'Create a new quote!',
       width: '30%',
     });
