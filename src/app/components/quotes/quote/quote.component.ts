@@ -15,7 +15,6 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
   templateUrl: './quote.component.html',
 })
 export class QuoteComponent implements OnInit {
-  @Output() closeNewQuote = new EventEmitter<boolean>();
   quoteForm: FormGroup = this._formBuilder.group({
     author: ['', [Validators.required]],
     quote: ['', [Validators.required]],
