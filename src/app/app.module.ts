@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { HeaderModule } from './shared/header/header.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
-    HeaderModule,
+    SharedModule,
     ReactiveFormsModule
   ],
   providers: [],

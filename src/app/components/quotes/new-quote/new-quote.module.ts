@@ -8,7 +8,7 @@ import { UiModule } from 'src/app/ui/ui.module';
 
 @NgModule({
   declarations: [
-    NewQuoteComponent
+    NewQuoteComponent,
   ],
   imports: [
     CommonModule,
