@@ -5,9 +5,19 @@ const routes: Routes = [
   {
     path: 'quotes',
     loadChildren: () =>
-      import('./pages/quotes/quote-list/quote-list.module').then(
+      import('./components/quotes/quote-list/quote-list.module').then(
         (m) => m.QuoteListModule
       ),
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./components/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/home',
   },
 ];
 

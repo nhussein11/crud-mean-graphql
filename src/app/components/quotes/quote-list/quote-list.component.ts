@@ -9,11 +9,13 @@ import { QuotesService } from 'src/app/services/quotes.service';
   styleUrls: ['./quote-list.component.css'],
 })
 export class QuoteListComponent {
-  
-  quotes$:Observable<Quote[]>;
+  quotes$: Observable<Quote[]>;
+  newQuote: boolean = false;
 
   constructor(private _quoteService: QuotesService) {
-    this.quotes$ = this._quoteService.quotes
+    this.quotes$ = this._quoteService.quotes;
   }
-
+  createNewQuote() {
+    this.newQuote = true;
+  }
 }
