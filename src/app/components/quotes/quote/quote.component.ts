@@ -16,7 +16,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class QuoteComponent implements OnInit {
   @Output() closeNewQuote = new EventEmitter<boolean>();
-  newForm: FormGroup = this._formBuilder.group({
+  quoteForm: FormGroup = this._formBuilder.group({
     author: ['', [Validators.required]],
     quote: ['', [Validators.required]],
   });
@@ -29,9 +29,7 @@ export class QuoteComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.config.data) {
-      const { author, quote } = this.config.data;
-      this.newForm.controls['author'].setValue(author);
-      this.newForm.controls['quote'].setValue(quote);
+      this.quoteForm.patchValue(this.config.data)
     }
   }
 }

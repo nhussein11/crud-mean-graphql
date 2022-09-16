@@ -1,11 +1,11 @@
-<form [formGroup]="newForm">
+<form [formGroup]="quoteForm">
   <div class="card">
     <div class="flex flex-column justify-content-center">
       <app-ui-author-input 
-      [author]="newForm.controls['author'] | formControl">
+      [author]="quoteForm.controls['author'] | formControl">
       </app-ui-author-input>
       <app-ui-quote-textarea
-        [quoteTextArea]="newForm.controls['quote'] | formControl"
+        [quoteTextArea]="quoteForm.controls['quote'] | formControl"
       ></app-ui-quote-textarea>
     </div>
     <div class="flex justify-content-end mt-2">
