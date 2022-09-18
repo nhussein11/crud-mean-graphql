@@ -4,6 +4,7 @@ import { PrimengModule } from '../primeng/primeng.module';
 
 import { UiAuthorInputComponent } from './ui-author-input/ui-author-input.component';
 import { UiQuoteTextareaComponent } from './ui-quote-textarea/ui-quote-textarea/ui-quote-textarea.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { UiQuoteTextareaComponent } from './ui-quote-textarea/ui-quote-textarea/
   ],
   imports: [
     CommonModule,
-    PrimengModule
+    PrimengModule,
+    ReactiveFormsModule
   ],
   exports:[
     UiAuthorInputComponent,

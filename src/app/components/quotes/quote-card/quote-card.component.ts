@@ -8,9 +8,10 @@ import { QuoteComponent } from '../quote/quote.component';
   templateUrl: './quote-card.component.html',
 })
 export class QuoteCardComponent {
-  @Input() quote: Quote = {} as Quote;
+  @Input() quote!: Quote;
 
   constructor(private _dialogService: DialogService){}
+
   updateQuote(quote: Quote){
     const dialogReference = this._dialogService.open(QuoteComponent, {
       data: quote,

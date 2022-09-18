@@ -25,5 +25,7 @@ export class QuoteListComponent {
       header: 'Create a new quote!',
       width: '30%',
     });
+    
+    dialogReference.onClose.subscribe((result)=>console.log(result))
   }
 }

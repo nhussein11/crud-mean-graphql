@@ -1,10 +1,12 @@
-<div class="p-inputgroup">
-  <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-  <input
-    class="w-10"
-    type="text"
-    pInputText
-    placeholder="{{author.value}}"
-    formControlName="author"
-    />
-</div>
+<ng-container [formGroup]="form">
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+    <input
+      class="w-10"
+      type="text"
+      pInputText
+      placeholder=""
+      formControlName="author"
+      />
+  </div>
+</ng-container>

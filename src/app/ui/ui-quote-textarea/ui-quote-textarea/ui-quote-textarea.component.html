@@ -1,8 +1,10 @@
-<div>
-  <h5 class="text-xl">Quote</h5>
-  <textarea
-    class="w-10 h-7rem "
-    pInputTextarea
-    formControlName="quoteTextArea"
-  >{{quoteTextArea.value}}</textarea>
-</div>
+<ng-container [formGroup]="form">
+  <div>
+    <h5 class="text-xl">Quote</h5>
+    <textarea
+      class="w-10 h-7rem"
+      pInputTextarea
+      formControlName="quote"
+    ></textarea>
+  </div>
+</ng-container>

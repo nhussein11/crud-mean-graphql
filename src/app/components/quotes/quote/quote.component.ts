@@ -1,14 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Quote } from 'src/app/models/Quote';
 
 @Component({
   selector: 'app-quote',
@@ -28,7 +21,14 @@ export class QuoteComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.config.data) {
-      this.quoteForm.patchValue(this.config.data)
+      this.quoteForm.patchValue(this.config.data);
     }
+  }
+  saveQuote() {
+    const quote : Omit<Quote, "id"> = {
+      author: this.quoteForm.controls['author'].value,
+      quote: this.quoteForm.controls['quote'].value
+    }
+    this.ref.close(quote)
   }
 }
