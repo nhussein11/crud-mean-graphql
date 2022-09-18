@@ -27,7 +27,10 @@ export class QuoteListComponent {
     });
 
     dialogReference.onClose.subscribe((quote: NewQuote) => {
-      console.log(quote);
+      if (quote) {
+        //TODO: create new quote service
+        console.log(quote);
+      }
     });
   }
 }
