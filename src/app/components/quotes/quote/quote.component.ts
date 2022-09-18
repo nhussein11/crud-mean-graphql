@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Quote } from 'src/app/models/Quote';
+import { NewQuote, Quote } from 'src/app/models/Quote';
 
 @Component({
   selector: 'app-quote',
@@ -25,7 +25,7 @@ export class QuoteComponent implements OnInit {
     }
   }
   saveQuote() {
-    const quote : Omit<Quote, "id"> = {
+    const quote : NewQuote = {
       author: this.quoteForm.controls['author'].value,
       quote: this.quoteForm.controls['quote'].value
     }

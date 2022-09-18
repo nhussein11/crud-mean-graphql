@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
-import { Quote } from 'src/app/models/Quote';
+import { NewQuote, Quote } from 'src/app/models/Quote';
 import { QuotesService } from 'src/app/services/quotes.service';
 import { QuoteComponent } from '../quote/quote.component';
 
@@ -25,7 +25,9 @@ export class QuoteListComponent {
       header: 'Create a new quote!',
       width: '30%',
     });
-    
-    dialogReference.onClose.subscribe((result)=>console.log(result))
+
+    dialogReference.onClose.subscribe((quote: NewQuote) => {
+      console.log(quote);
+    });
   }
 }
