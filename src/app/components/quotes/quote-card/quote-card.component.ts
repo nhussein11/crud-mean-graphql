@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NewQuote, Quote } from 'src/app/models/Quote';
+import { QuoteService } from 'src/app/services/quote.service';
 import { QuoteComponent } from '../quote/quote.component';
 
 @Component({
@@ -10,7 +11,10 @@ import { QuoteComponent } from '../quote/quote.component';
 export class QuoteCardComponent {
   @Input() quote!: Quote;
 
-  constructor(private _dialogService: DialogService) {}
+  constructor(
+    private _dialogService: DialogService,
+    private _quoteService: QuoteService  
+  ) {}
 
   updateQuote(quote: Quote) {
     const dialogReference = this._dialogService.open(QuoteComponent, {
@@ -20,8 +24,7 @@ export class QuoteCardComponent {
     });
     dialogReference.onClose.subscribe((quote: NewQuote) => {
       if (quote) {
-        //TODO: update quote service
-        console.log(quote);
+        // this._quoteService
       }
     });
   }
