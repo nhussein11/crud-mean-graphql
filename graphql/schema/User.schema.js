@@ -20,7 +20,7 @@ const queries = `
 
 const mutations = `
     createUser(userInput: UserInputData) : User!
-    updateUser(id: ID!, userInput: UserInputData) : User!
-    deleteUser(id: ID!) : User!
+    updateUser(_id: ID!, userInput: UserInputData) : User!
+    deleteUser(_id: ID!) : User!
 `;
 module.exports = {types, queries, mutations};

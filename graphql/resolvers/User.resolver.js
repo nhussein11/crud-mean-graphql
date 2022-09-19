@@ -23,10 +23,10 @@ module.exports = {
       password: createdUser.password,
     };
   },
-  updateUser: async ({ id, userInput }) => {
+  updateUser: async ({ id: _id, userInput }) => {
     const { name, address, email, password } = userInput;
     const updatedUser = await User.findByIdAndUpdate(
-      id,
+      _id,
       {
         name,
         address,
@@ -44,10 +44,10 @@ module.exports = {
       _id: updatedUser._id.toString(),
     };
   },
-  deleteUser: async ({ id }) => {
-    const deletedUser = await User.findByIdAndDelete(id);
+  deleteUser: async ({ id: _id }) => {
+    const deletedUser = await User.findByIdAndDelete(_id);
     if (!deletedUser) {
-      throw new Error(`No user with id ${id} found!`);
+      throw new Error(`No user with id ${_id} found!`);
     }
     return {
       ...deletedUser.toJSON(),
