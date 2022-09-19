@@ -16,8 +16,8 @@ const queries = `
 
 const mutations = `
     createQuote(quoteInput: QuoteInputData): Quote!
-    updateQuote(id: ID!, quoteInput: QuoteInputData): Quote!
-    deleteQuote(id: ID!): Quote!
+    updateQuote(_id: ID!, quoteInput: QuoteInputData): Quote!
+    deleteQuote(_id: ID!): Quote!
 `;
 
 module.exports = {types, queries, mutations};
