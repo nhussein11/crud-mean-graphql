@@ -20,12 +20,16 @@ module.exports = {
     };
   },
   updateQuote: async ({ id, quoteInput }) => {
+    const {quote, author} = quoteInput
     const updatedQuote = await Quote.findByIdAndUpdate(id, {
-      quoteInput,
-    });
+      quote,
+      author
+    }, {new:true});
     if (!updatedQuote) {
       throw new Error("No quote found!");
     }
+    console.log(quoteInput)
+    console.log(updatedQuote)
     return {
       ...updatedQuote.toJSON(),
       _id: updatedQuote._id.toString(),
