@@ -1,9 +1,11 @@
-<p-card 
-header="{{ quote.author }}"
-styleClass="mt-5 mx-3 w-15rem cursor-pointer"
-(click)="updateQuote(quote)"
+<p-card
+  header="{{ quote.author }}"
+  styleClass="mt-5 mx-3 w-15rem cursor-pointer overflow-hidden "
+  (click)="updateQuote(quote)"
 >
-  <p>
-    {{ quote.quote }}
-  </p>
+  <ng-template pTemplate="content" styleClass=" flex flex-wrap align-items-center   ">
+    <p class="h-5rem m-3 overflow-hidden">
+      {{ quote.quote }}
+    </p>
+  </ng-template>
 </p-card>
