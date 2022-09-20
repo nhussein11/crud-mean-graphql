@@ -1,6 +1,6 @@
 export interface Quote {
-    id: string,
+    _id: string,
     quote: string,
     author: string
 }
-export type NewQuote = Omit<Quote, 'id'>
+export type NewQuote = Omit<Quote, '_id'>

@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
+import { gql } from 'apollo-angular';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
 import { NewQuote, Quote } from 'src/app/models/Quote';
 import { QuoteService } from 'src/app/services/quote.service';
 import { QuotesService } from 'src/app/services/quotes.service';
 import { QuoteComponent } from '../quote/quote.component';
+
+const NEW_QUOTE_MUTATION = gql`
+  mutation CreateQuote($quote: String!, $author: String!) {
+    createQuote(quoteInput: { quote: $quote, author: $author }) {
+      author
+      quote
+    }
+  }
+`;
 
 @Component({
   selector: 'app-quote-list',
@@ -31,7 +41,7 @@ export class QuoteListComponent {
 
     dialogReference.onClose.subscribe((quote: NewQuote) => {
       if (quote) {
-        this._quoteService.createNewQuote(quote);
+        this._quoteService.handleQuoteMutation(quote, NEW_QUOTE_MUTATION);
       }
     });
   }

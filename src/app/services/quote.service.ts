@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
-import { NewQuote } from '../models/Quote';
-
-const NEW_QUOTE_MUTATION = gql`
-  mutation CreateQuote($quote: String!, $author: String!) {
-    createQuote(quoteInput: { quote: $quote, author: $author }) {
-      author
-      quote
-    }
-  }
-`;
+import { Apollo, gql, TypedDocumentNode } from 'apollo-angular';
+import { NewQuote, Quote } from '../models/Quote';
+import { QUOTES } from './quotes.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,31 +9,32 @@ const NEW_QUOTE_MUTATION = gql`
 export class QuoteService {
   constructor(private _apollo: Apollo) {}
 
-  public createNewQuote(newQuote: NewQuote) {
-    const { quote, author } = newQuote;
-
+  public handleQuoteMutation(
+    quoteToHandle: Quote | NewQuote,
+    mutation: TypedDocumentNode<unknown, unknown>
+  ) {
     return this._apollo
       .mutate({
-        mutation: NEW_QUOTE_MUTATION,
-        variables: {
-          quote,
-          author,
-        }
+        mutation,
+        variables: quoteToHandle,
+        update: (cache) => {
+          const existingQuotes: any = cache.readQuery({
+            query: QUOTES,
+          });
+          const newQuotes = existingQuotes.allQuotes.map((q: Quote) => {
+            if ('_id' in quoteToHandle && q._id === quoteToHandle._id) {
+              return { ...q };
+            } else {
+              return q;
+            }
+          });
+
+          cache.writeQuery({
+            query: QUOTES,
+            data: { allQuotes: {...newQuotes} },
+          });
+        },
       })
       .subscribe();
   }
-
-  // public updateQuote(quoteToUpdate: NewQuote) {
-  //   const { quote, author } = quoteToUpdate;
-
-  //   return this._apollo
-  //     .mutate({
-  //       mutation: NEW_QUOTE_MUTATION,
-  //       variables: {
-  //         quote,
-  //         author,
-  //       }
-  //     })
-  //     .subscribe();
-  // }
 }

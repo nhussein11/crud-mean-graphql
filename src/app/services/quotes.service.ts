@@ -5,9 +5,10 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Quote } from '../models/Quote';
 
-const QUOTES = gql`
+export const QUOTES = gql`
   {
     allQuotes{
+      _id
       author
       quote
     }
@@ -38,7 +39,7 @@ export class QuotesService {
       })
       .valueChanges.pipe(
         map(({data} : any) => {
-          const {allQuotes} = data
+          const {allQuotes} = data          
           this.quotesData = allQuotes
         })
       )
