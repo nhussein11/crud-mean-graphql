@@ -8,6 +8,7 @@ import { QuoteComponent } from '../quote/quote.component';
 const UPDATE_QUOTE_MUTATION = gql`
   mutation UpdateQuote($_id: ID!, $quote: String!, $author: String!) {
     updateQuote(_id: $_id, quoteInput: { quote: $quote, author: $author }) {
+      _id
       author
       quote
     }
