@@ -7,12 +7,13 @@ import {
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
-  selector: 'app-ui-author-input',
-  templateUrl: './ui-author-input.component.html',
+  selector: 'app-ui-input',
+  templateUrl: './ui-input.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiAuthorInputComponent implements OnInit {
+export class UiInputComponent implements OnInit {
   @Input() form!: FormGroup;
+  @Input() formControlNameAccesor!: string;
 
   constructor(private rootForm: FormGroupDirective) {}
 

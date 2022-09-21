@@ -5,12 +5,13 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-ui-quote-textarea',
-  templateUrl: './ui-quote-textarea.component.html',
+  selector: 'app-ui-textarea',
+  templateUrl: './ui-textarea.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiQuoteTextareaComponent {
+export class UiTextareaComponent {
   @Input() form!: FormGroup;
+  @Input() formControlNameAccesor!: string;
 
   constructor(private rootForm: FormGroupDirective) {}
 
