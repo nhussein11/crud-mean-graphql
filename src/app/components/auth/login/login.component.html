@@ -3,7 +3,16 @@
   header="LOGIN"
 >
   <ng-template pTemplate="content">
-    <input type="text">
-    <input type="text">
+    <form [formGroup]="loginForm">
+      <app-ui-input
+        [form]="loginForm"
+        [formControlNameAccesor]="'email'"
+      ></app-ui-input>
+      <app-ui-input
+        [form]="loginForm"
+        [formControlNameAccesor]="'password'"
+      ></app-ui-input>
+      <p-button>Submit</p-button>
+    </form>
   </ng-template>
 </p-card>
