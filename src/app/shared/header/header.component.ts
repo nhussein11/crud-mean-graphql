@@ -12,10 +12,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      { label: ' Quotes', icon:'pi pi-book', routerLink:'/quotes'},
+      { label: ' Quotes', icon:'bi bi-journal-bookmark', routerLink:'/quotes'},
     ];
 
-    this.home = { icon: 'pi pi-home', routerLink: '/home' };
+    this.home = { icon: 'bi bi-house', routerLink: '/home' };
   }
 
 }

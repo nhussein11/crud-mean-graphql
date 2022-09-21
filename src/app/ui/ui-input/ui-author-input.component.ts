@@ -14,6 +14,7 @@ import { FormGroup, FormGroupDirective } from '@angular/forms';
 export class UiInputComponent implements OnInit {
   @Input() form!: FormGroup;
   @Input() formControlNameAccesor!: string;
+  @Input() iconClass!: string;
 
   constructor(private rootForm: FormGroupDirective) {}
 

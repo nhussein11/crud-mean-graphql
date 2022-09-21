@@ -4,6 +4,7 @@
       <app-ui-input
         [form]="quoteForm"
         [formControlNameAccesor]="'author'"
+        [iconClass]="'bi bi-person text-4xl'"
       ></app-ui-input>
       <app-ui-textarea
         [form]="quoteForm"
@@ -13,7 +14,7 @@
     <div class="flex justify-content-end mt-2">
       <p-button
         label="Save"
-        icon="pi pi-save"
+        icon="bi bi-save"
         iconPos="right"
         (onClick)="saveQuote()"
       ></p-button>
