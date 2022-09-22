@@ -1,5 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { gql } from 'apollo-angular';
+import { LoginService } from 'src/app/services/login.service';
+
+const LOGIN_QUERY = gql`
+  query GetUser($email: String!, $password: String!) {
+    getUser(email: $email, password: $password) {
+      name
+      address
+    }
+  }
+`;
 
 @Component({
   selector: 'app-login',
@@ -15,10 +26,10 @@ export class LoginComponent {
     { updateOn: 'blur' }
   );
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private _loginService: LoginService) {}
 
   handleLogin() {
-    const {email, password} = this.loginForm.value;
-    console.log(email, password);
+    const { email, password } = this.loginForm.value;
+    this._loginService.handleLoginQueries(LOGIN_QUERY, {email, password})
   }
 }
