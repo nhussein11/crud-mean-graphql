@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +16,9 @@ export class LoginService {
         query,
         variables,
       })
-      .valueChanges.pipe(map(({ data }: any) => data.getUser));
+      .valueChanges.pipe(
+        take(1),
+        map(({ data }: any) => data.getUser)
+      );
   }
 }

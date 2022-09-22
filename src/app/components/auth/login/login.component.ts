@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { gql } from 'apollo-angular';
-import { map, Observable } from 'rxjs';
+import { gql, Subscription } from 'apollo-angular';
 import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -30,7 +29,7 @@ export class LoginComponent {
     },
     { updateOn: 'blur' }
   );
-  user$!: Observable<User>;
+  user!: User;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -40,11 +39,15 @@ export class LoginComponent {
   handleLogin() {
     const { email, password } = this.loginForm.value;
 
-    this._loginService.handleLoginQuery(LOGIN_QUERY, {
-      email,
-      password,
-    }).subscribe((user : User) => {
-      console.log(user)
-    })
+  this._loginService
+      .handleLoginQuery(LOGIN_QUERY, {
+        email,
+        password,
+      })
+      .subscribe((user: User) => {
+        this.user = user;
+        console.log(this.user)
+      })
+    
   }
 }
