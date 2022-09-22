@@ -16,6 +16,7 @@ const types = `
 
 const queries = `
     allUsers: [User!]!
+    getUser(email: String!, password: String!) : User
 `;
 
 const mutations = `

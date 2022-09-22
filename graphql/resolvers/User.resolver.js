@@ -5,6 +5,14 @@ module.exports = {
     const users = await User.find();
     return users;
   },
+  getUser: async ({ email, password }) => {
+    const user = await User.findOne({ email, password });
+    if (!user) {
+      return;
+    }
+
+    return user;
+  },
   createUser: async ({ userInput }) => {
     const { name, address, email, password } = userInput;
     const newUser = new User({

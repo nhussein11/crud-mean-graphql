@@ -1,11 +1,12 @@
 const userResolver = require("./User.resolver");
 const quoteResolver = require("./Quote.resolver");
 
-const { allUsers, createUser, updateUser, deleteUser } = userResolver;
+const { allUsers, getUser,createUser, updateUser, deleteUser } = userResolver;
 const { allQuotes, createQuote, updateQuote, deleteQuote } = quoteResolver;
 
 module.exports = {
   allUsers,
+  getUser,
   createUser,
   updateUser,
   deleteUser,
