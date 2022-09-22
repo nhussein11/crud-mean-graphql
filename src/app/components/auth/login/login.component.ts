@@ -4,17 +4,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup = this._formBuilder.group({
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
-  });
+export class LoginComponent {
+  loginForm: FormGroup = this._formBuilder.group(
+    {
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    },
+    { updateOn: 'blur' }
+  );
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder) {}
 
-  ngOnInit() {
+  handleLogin() {
+    const {email, password} = this.loginForm.value;
+    console.log(email, password);
   }
-
 }

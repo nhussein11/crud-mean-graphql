@@ -1,5 +1,5 @@
 <p-card styleClass="mt-5 mx-3 w-15rem cursor-pointer overflow-hidden ">
-  <ng-template pTemplate="header">
+  <ng-template pTemplate="subtitle" >
     <div class="flex justify-content-center">
       <h2>Login <i class="bi bi-door-open"></i></h2>
     </div>
@@ -21,6 +21,7 @@
         label="Submit"
         icon="bi bi-send-check"
         iconPos="right"
+        (onClick)="handleLogin()"
       ></p-button>
     </form>
   </ng-template>

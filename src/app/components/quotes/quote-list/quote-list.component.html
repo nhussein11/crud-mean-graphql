@@ -8,7 +8,7 @@
 <div>
   <div class="card">
     <div class="flex flex-wrap">
-        <div *ngFor="let quote of quotes$ | async" class="ml-6">
+        <div *ngFor="let quote of quotes$ | async; trackBy:trackByFn" class="ml-6">
         <app-quote-card [quote]="quote"></app-quote-card>
       </div>
     </div>

@@ -32,7 +32,7 @@ export class QuoteListComponent {
   ) {
     this.quotes$ = this._quotesService.quotes;
   }
-  
+
   createNewQuote() {
     const dialogReference = this._dialogService.open(QuoteComponent, {
       header: 'Create a new quote!',
@@ -44,5 +44,9 @@ export class QuoteListComponent {
         this._quoteService.handleQuoteMutation(quote, NEW_QUOTE_MUTATION);
       }
     });
+  }
+
+  trackByFn(index: number, quote: Quote) {
+    return quote._id;
   }
 }
