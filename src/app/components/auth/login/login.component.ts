@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gql } from 'apollo-angular';
+import { map, Observable } from 'rxjs';
+import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login.service';
 
 const LOGIN_QUERY = gql`
   query GetUser($email: String!, $password: String!) {
     getUser(email: $email, password: $password) {
+      _id
       name
       address
+      email
+      password
     }
   }
 `;
@@ -25,11 +30,21 @@ export class LoginComponent {
     },
     { updateOn: 'blur' }
   );
+  user$!: Observable<User>;
 
-  constructor(private _formBuilder: FormBuilder, private _loginService: LoginService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _loginService: LoginService
+  ) {}
 
   handleLogin() {
     const { email, password } = this.loginForm.value;
-    this._loginService.handleLoginQueries(LOGIN_QUERY, {email, password})
+
+    this._loginService.handleLoginQuery(LOGIN_QUERY, {
+      email,
+      password,
+    }).subscribe((user : User) => {
+      console.log(user)
+    })
   }
 }
