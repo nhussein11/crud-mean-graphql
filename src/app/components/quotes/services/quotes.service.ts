@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Quote } from '../../../shared/models/Quote';
+import { Quote, QuotesApiResponse } from '../../../shared/models/Quote';
 
 export const QUOTES = gql`
   {
@@ -33,14 +34,14 @@ export class QuotesService {
     this.getQuotes();
   }
 
-  private getQuotes() {
+  private getQuotes(): void {
     this._apollo
-      .watchQuery({
+      .watchQuery<QuotesApiResponse>({
         query: QUOTES,
       })
       .valueChanges.pipe(
-        map(({ data }: any) => {
-          const { allQuotes } = data;
+        map((result: ApolloQueryResult<QuotesApiResponse>) => {
+          const { allQuotes } = result.data;
           this.quotesData = allQuotes;
         })
       )
