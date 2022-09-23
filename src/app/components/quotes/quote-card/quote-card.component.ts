@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { gql } from 'apollo-angular';
 import { DialogService } from 'primeng/dynamicdialog';
 
-import { NewQuote, Quote } from 'src/app/models/Quote';
-import { QuoteService } from 'src/app/services/quote.service';
+import { NewQuote, Quote } from 'src/app/shared/models/Quote';
 
 import { QuoteComponent } from '../quote/quote.component';
+import { QuoteService } from '../services/quote.service';
 
 const UPDATE_QUOTE_MUTATION = gql`
   mutation UpdateQuote($_id: ID!, $quote: String!, $author: String!) {

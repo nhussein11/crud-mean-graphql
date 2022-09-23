@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { NewQuote } from 'src/app/models/Quote';
+import { NewQuote } from 'src/app/shared/models/Quote';
 
 @Component({
   selector: 'app-quote',

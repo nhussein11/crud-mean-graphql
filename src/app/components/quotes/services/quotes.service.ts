@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Quote } from '../models/Quote';
+import { Quote } from '../../../shared/models/Quote';
 
 export const QUOTES = gql`
   {

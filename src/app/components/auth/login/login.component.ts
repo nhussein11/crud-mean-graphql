@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gql } from 'apollo-angular';
 
-import { User } from 'src/app/models/User';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/components/auth/services/login.service';
+import { User } from 'src/app/shared/models/User';
 
 const LOGIN_QUERY = gql`
   query GetUser($email: String!, $password: String!) {

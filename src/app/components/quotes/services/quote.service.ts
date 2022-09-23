@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
 
-import { NewQuote, Quote } from '../models/Quote';
+import { NewQuote, Quote } from '../../../shared/models/Quote';
 import { QUOTES } from './quotes.service';
 
 @Injectable({
