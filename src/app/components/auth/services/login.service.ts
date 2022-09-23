@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { map, take } from 'rxjs';
+
+import { LoginApiResponse } from 'src/app/shared/models/User';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,13 +15,15 @@ export class LoginService {
     variables: object
   ) {
     return this._apollo
-      .watchQuery({
+      .watchQuery<LoginApiResponse>({
         query,
         variables,
       })
       .valueChanges.pipe(
         take(1),
-        map(({ data }: any) => data.getUser)
+        map((result: ApolloQueryResult<LoginApiResponse>) => {
+          return result.data.getUser;
+        })
       );
   }
 }
