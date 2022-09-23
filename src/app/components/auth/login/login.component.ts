@@ -46,7 +46,6 @@ export class LoginComponent {
       })
       .subscribe((user: User) => {
         this.user = user;
-        console.log(this.user)
       })
     
   }

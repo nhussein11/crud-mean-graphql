@@ -46,7 +46,7 @@ export class QuoteListComponent {
     });
   }
 
-  trackByFn(index: number, quote: Quote) {
+  trackByQuoteId(index: number, quote: Quote) : string {
     return quote._id;
   }
 }
