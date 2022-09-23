@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { gql } from 'apollo-angular';
 import { DialogService } from 'primeng/dynamicdialog';
+
 import { NewQuote, Quote } from 'src/app/models/Quote';
 import { QuoteService } from 'src/app/services/quote.service';
+
 import { QuoteComponent } from '../quote/quote.component';
 
 const UPDATE_QUOTE_MUTATION = gql`

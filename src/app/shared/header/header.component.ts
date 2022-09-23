@@ -9,13 +9,15 @@ export class HeaderComponent implements OnInit {
 
   home: MenuItem = {};
 
-
   ngOnInit(): void {
     this.items = [
-      { label: ' Quotes', icon:'bi bi-journal-bookmark', routerLink:'/quotes'},
+      {
+        label: ' Quotes',
+        icon: 'bi bi-journal-bookmark',
+        routerLink: '/quotes',
+      },
     ];
 
     this.home = { icon: 'bi bi-house', routerLink: '/home' };
   }
-
 }

@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { gql } from 'apollo-angular';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
+
 import { NewQuote, Quote } from 'src/app/models/Quote';
 import { QuoteService } from 'src/app/services/quote.service';
 import { QuotesService } from 'src/app/services/quotes.service';
+
 import { QuoteComponent } from '../quote/quote.component';
 
 const NEW_QUOTE_MUTATION = gql`
@@ -23,7 +25,7 @@ const NEW_QUOTE_MUTATION = gql`
 })
 export class QuoteListComponent {
   quotes$: Observable<Quote[]>;
-  newQuote: boolean = false;
+  newQuote = false;
 
   constructor(
     private _quoteService: QuoteService,
@@ -46,7 +48,7 @@ export class QuoteListComponent {
     });
   }
 
-  trackByQuoteId(index: number, quote: Quote) : string {
+  trackByQuoteId(index: number, quote: Quote): string {
     return quote._id;
   }
 }

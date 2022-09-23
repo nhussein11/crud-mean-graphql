@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { gql, Subscription } from 'apollo-angular';
+import { gql } from 'apollo-angular';
+
 import { User } from 'src/app/models/User';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -39,14 +40,13 @@ export class LoginComponent {
   handleLogin() {
     const { email, password } = this.loginForm.value;
 
-  this._loginService
+    this._loginService
       .handleLoginQuery(LOGIN_QUERY, {
         email,
         password,
       })
       .subscribe((user: User) => {
         this.user = user;
-      })
-    
+      });
   }
 }

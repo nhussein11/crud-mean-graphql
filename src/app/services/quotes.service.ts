@@ -3,11 +3,12 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { Quote } from '../models/Quote';
 
 export const QUOTES = gql`
   {
-    allQuotes{
+    allQuotes {
       _id
       author
       quote
@@ -38,9 +39,9 @@ export class QuotesService {
         query: QUOTES,
       })
       .valueChanges.pipe(
-        map(({data} : any) => {
-          const {allQuotes} = data          
-          this.quotesData = allQuotes
+        map(({ data }: any) => {
+          const { allQuotes } = data;
+          this.quotesData = allQuotes;
         })
       )
       .subscribe();

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql, TypedDocumentNode } from 'apollo-angular';
+import { Apollo, TypedDocumentNode } from 'apollo-angular';
+
 import { NewQuote, Quote } from '../models/Quote';
-import { QUOTES, QuotesService } from './quotes.service';
+import { QUOTES } from './quotes.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +18,8 @@ export class QuoteService {
       .mutate({
         mutation,
         variables: quoteToHandle,
-        refetchQueries: [QUOTES]
+        refetchQueries: [QUOTES],
       })
       .subscribe();
-
   }
 }

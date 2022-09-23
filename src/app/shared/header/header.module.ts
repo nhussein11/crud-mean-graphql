@@ -1,17 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
+import { NgModule } from '@angular/core';
+
 import { PrimengModule } from 'src/app/primeng/primeng.module';
 
+import { HeaderComponent } from './header.component';
 
 @NgModule({
-  declarations: [
-    HeaderComponent
-  ],
-  imports: [
-    CommonModule,
-    PrimengModule,
-  ],
-  exports:[HeaderComponent]
+  declarations: [HeaderComponent],
+  imports: [CommonModule, PrimengModule],
+  exports: [HeaderComponent],
 })
-export class HeaderModule { }
+export class HeaderModule {}
