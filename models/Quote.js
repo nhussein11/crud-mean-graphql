@@ -5,12 +5,13 @@ const Schema = mongoose.Schema;
 const quoteSchema = new Schema({
   quote: {
     type: String,
-    required: true,
   },
   author: {
     type: String,
-    required: true,
   },
+  year: {
+    type: Number,
+  }
 });
 
 module.exports = mongoose.model('Quote', quoteSchema);

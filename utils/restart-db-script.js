@@ -1,20 +1,24 @@
 const Quote = require("../models/Quote");
 const User = require("../models/User");
 
+const { connectToDatabase } = require("../database/connection");
+
 const deleteAllTables = async () => {
-  console.log( "deleting")
-  await Quote.deleteMany({});
-  await User.deleteMany({});
+  console.log("deleting");
+  await Quote.deleteMany({})
+  await User.deleteMany({})
+
 };
 
 const populateQuoteSchema = async () => {
   const defaultQuotes = [
-    { author: "Messi", quote: "Hola quote 1", year: 1999 },
-    { author: "Neymar", quote: "Hola quote 2", year: 1998 },
-    { author: "Riquelme", quote: "Hola quote 3", year: 2004 },
-    { author: "Valverde", quote: "Hola quote 4", year: 1987 },
-    { author: "Duki", quote: "Hola quote 5", year: 2008 },
+    { author: "Madeleine L'Engle", quote: "You have to write the book that wants to be written. And if the book will be too difficult for grown-ups, then you write it for children", year: 1999 },
+    { author: "Stephen King", quote: "If you don't have time to read, you don't have the time (or the tools) to write. Simple as that.", year: 1998 },
+    { author: "Anaïs Nin", quote: "We write to taste life twice, in the moment and in retrospect", year: 2004 },
+    { author: "Mark Twain", quote: "Substitute 'damn' every time you're inclined to write 'very;' your editor will delete it and the writing will be just as it should be", year: 1987 },
+    { author: "Benjamin Franklin", quote: "Either write something worth reading or do something worth writing.", year: 2008 },
   ];
+  console.log("populateQuoteSchema");
   await Quote.insertMany(defaultQuotes);
 };
 
@@ -32,8 +36,15 @@ const populateUserSchema = async () => {
       email: "lucas@gmail.com",
       password: "1234",
     },
+    {
+      name: "Luis",
+      address: "Salta",
+      email: "luis@gmail.com",
+      password: "1234",
+    },
   ];
-  await Quote.insertMany(defaultUsers);
+  console.log("populateUserSchema");
+  await User.insertMany(defaultUsers);
 };
 
 const populataDatabase = async () => {
@@ -45,9 +56,10 @@ const populataDatabase = async () => {
   }
 };
 
-const main = async ()=> {
-    await deleteAllTables();
-    await populataDatabase();
+const main = async () => {
+  await deleteAllTables();
+  await populataDatabase();
 };
 
-main()
+connectToDatabase();
+main();
