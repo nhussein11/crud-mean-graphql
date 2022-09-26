@@ -1,5 +1,5 @@
-const Quote = require("../models/Quote");
-const User = require("../models/User");
+const Quote = require("../database/models/Quote");
+const User = require("../database/models/User");
 
 const { connectToDatabase } = require("../database/connection");
 
