@@ -12,6 +12,7 @@ export class QuoteComponent implements OnInit {
   quoteForm: FormGroup = this._formBuilder.group({
     author: ['', [Validators.required]],
     quote: ['', [Validators.required]],
+    year: ['', [Validators.required]],
   });
 
   constructor(
@@ -30,6 +31,7 @@ export class QuoteComponent implements OnInit {
     const quote: NewQuote = {
       author: this.quoteForm.controls['author'].value,
       quote: this.quoteForm.controls['quote'].value,
+      year: this.quoteForm.controls['year'].value,
     };
     this.ref.close(quote);
   }

@@ -4,8 +4,13 @@
       <app-ui-input
         [form]="quoteForm"
         [formControlNameAccesor]="'author'"
-        [iconClass]="'bi bi-person text-4xl'"
+        [iconClass]="'bi bi-person text-md'"
       ></app-ui-input>
+      <app-ui-input
+      [form]="quoteForm"
+      [formControlNameAccesor]="'year'"
+      [iconClass]="'bi bi-calendar text-md'"
+    ></app-ui-input>
       <app-ui-textarea
         [form]="quoteForm"
         [formControlNameAccesor]="'quote'"

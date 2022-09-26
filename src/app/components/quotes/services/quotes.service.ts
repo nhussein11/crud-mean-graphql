@@ -13,6 +13,7 @@ export const QUOTES = gql`
       _id
       author
       quote
+      year
     }
   }
 `;

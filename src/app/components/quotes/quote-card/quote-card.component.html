@@ -4,17 +4,20 @@
   <ng-template
     pTemplate="title"
     styleClass=" flex flex-wrap align-items-center ">
-    <div class="border-bottom-2 pb-4">
-      <p class="h-2rem text-overflow-ellipsis ">
-        <q>
+    <div>
+      <p class="h-5rem mb-7 text-overflow-ellipsis">
+        <q class="text-sm">
           {{ quote.quote }}
         </q>
       </p>
     </div>
   </ng-template>
-  <ng-template pTemplate="content"  styleClass="h-1rem border-1">
-    <p class="flex justify-content-end ">
+  <ng-template pTemplate="content">
+    <p class="flex justify-content-end font-italic font-bold">
       {{ quote.author }}
+    </p>
+    <p class="flex justify-content-end font-bold">
+      {{ quote.year }}
     </p>
   </ng-template>
 </p-card>
