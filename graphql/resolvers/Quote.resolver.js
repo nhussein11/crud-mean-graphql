@@ -6,10 +6,11 @@ module.exports = {
     return quotes;
   },
   createQuote: async ({ quoteInput }) => {
-    const { quote, author } = quoteInput;
+    const { quote, author, year } = quoteInput;
     const newQuote = new Quote({
       quote,
       author,
+      year
     });
     const createdQuote = await newQuote.save();
     return {
@@ -21,20 +22,19 @@ module.exports = {
   },
   updateQuote: async ({ _id, quoteInput }) => {
     console.log(_id)
-    const { quote, author } = quoteInput;
+    const { quote, author, year } = quoteInput;
     const updatedQuote = await Quote.findByIdAndUpdate(
       _id,
       {
         quote,
         author,
+        year
       },
       { new: true }
     );
     if (!updatedQuote) {
       throw new Error("No quote found!");
     }
-    console.log(quoteInput);
-    console.log(updatedQuote);
     return {
       ...updatedQuote.toJSON(),
       _id: updatedQuote._id.toString(),

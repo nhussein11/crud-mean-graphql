@@ -11,6 +11,7 @@
     "nodemon": "^2.0.19"
   },
   "scripts": {
-    "start":"nodemon app.js"
+    "start":"nodemon app.js",
+    "restart-db": "nodemon app.js &&  nodemon utils/restart-db-script.js"
   }
 }

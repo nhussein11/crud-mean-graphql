@@ -3,10 +3,12 @@ const types = `
         _id: ID!
         quote: String!
         author: String!
+        year: Int
     }
     input QuoteInputData {
         quote: String!
         author: String!
+        year: Int
     }
 `;
 
