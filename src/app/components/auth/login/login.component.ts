@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gql } from 'apollo-angular';
+import { tap } from 'rxjs/operators';
 
 import { LoginService } from 'src/app/components/auth/services/login.service';
 import { User } from 'src/app/shared/models/User';
@@ -45,8 +46,12 @@ export class LoginComponent {
         email,
         password,
       })
-      .subscribe((user: User) => {
-        this.user = user;
-      });
+      .pipe(
+        tap((user: User) => {
+          this.user = user;
+          console.log(this.user);
+        })
+      )
+      .subscribe();
   }
 }
