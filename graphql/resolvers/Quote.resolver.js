@@ -1,4 +1,4 @@
-const Quote = require("../../database/models/Quote")
+const { Quote} = require('../../database/models')
 
 module.exports = {
   allQuotes: async () => {

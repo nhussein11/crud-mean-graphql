@@ -25,6 +25,8 @@ connectToDatabase()
   .then(() => {
     app.listen(4000, console.log("Connecting to port 4000"));
   })
-  .catch((error) => console.error("MongoDB connection failed:", error.message));
+  .catch((error) =>
+    console.error("MongoDB connection failed: ", error.message)
+  );
 
 console.log("Running a GraphQL API server at http://localhost:4000/graphql");
