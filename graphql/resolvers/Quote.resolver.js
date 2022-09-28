@@ -11,8 +11,10 @@ module.exports = {
     const newQuote = new Quote({
       quote,
       author,
-      year
+      year,
+      userId: verifiedUser._id
     });
+    console.log (newQuote)
     const createdQuote = await newQuote.save();
     return {
       ...createdQuote.toJSON()

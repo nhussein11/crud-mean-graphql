@@ -14,6 +14,7 @@ module.exports = {
     }
 
     const token = createJWTToken(user);
+    console.log(token);
 
     return { ...user.toJSON(), token };
   },

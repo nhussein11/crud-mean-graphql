@@ -5,10 +5,11 @@ const authenticate = (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
 
     const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log(verified)
     req.verifiedUser = verified
-    
     next();
   } catch (error) {
+    console.log(error)
     throw Error("Invalid Token");
   }
 };

@@ -3,7 +3,8 @@ const types = `
         _id: ID!
         quote: String!
         author: String!
-        year: Int
+        year: Int!
+        userId: String!
     }
     input QuoteInputData {
         quote: String!

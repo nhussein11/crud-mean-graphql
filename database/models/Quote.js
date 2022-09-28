@@ -11,6 +11,9 @@ const quoteSchema = new Schema({
   },
   year: {
     type: Number,
+  },
+  userId: {
+    type: String
   }
 });
 

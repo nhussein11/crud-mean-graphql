@@ -13,12 +13,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-// app.use(authenticate);
-
-app.get('/', (req,res) => {
-  res.send("Welcome!")
-})
-
+app.use(authenticate);
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -27,6 +22,11 @@ app.use(
     graphiql: true,
   })
 );
+
+app.get('/', (req,res) => {
+  res.send("Welcome!")
+})
+
 
 connectToDatabase()
   .then(() => {
