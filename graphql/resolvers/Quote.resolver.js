@@ -17,10 +17,14 @@ module.exports = {
 
     return await newQuote.save();
   },
-  updateQuote: async ({ _id, quoteInput }) => {
+  updateQuote: async ({ _id, quoteInput }, { verifiedUser }) => {
+    if (!verifiedUser) throw new Error("Unauthorized");
+
+    const { _id: userId } = verifiedUser;
     const { quote, author, year } = quoteInput;
-    const updatedQuote = await Quote.findByIdAndUpdate(
-      _id,
+
+    const updatedQuote = await Quote.findOneAndUpdate(
+      { _id, userId },
       {
         quote,
         author,
@@ -33,10 +37,13 @@ module.exports = {
     }
     return updatedQuote;
   },
-  deleteQuote: async ({ id: _id }) => {
-    const deletedQuote = await Quote.findByIdAndDelete(_id);
+  deleteQuote: async ({ id: _id }, { verifiedUser }) => {
+    if (!verifiedUser) throw new Error("Unauthorized");
+    const { _id: userId } = verifiedUser;
+
+    const deletedQuote = await Quote.findOneAndDelete({_id, userId});
     if (!deletedQuote) {
-      throw new Error(`No quote with id ${_id} found!`);
+      throw new Error(`Invalid deleted!`);
     }
     return deletedQuote;
   },
