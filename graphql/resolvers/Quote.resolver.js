@@ -1,51 +1,43 @@
-const { Quote} = require('../../database/models')
+const { Quote } = require("../../database/models");
 
 module.exports = {
-  allQuotes: async () => {
-    const quotes = await Quote.find();
+  allQuotes: async (_, { verifiedUser }) => {
+    const { _id: userId } = verifiedUser;
+    const quotes = await Quote.find({ userId });
     return quotes;
   },
-  createQuote: async ({ quoteInput }, {verifiedUser}) => {
-    console.log( 'verifiedUser', verifiedUser)
+  createQuote: async ({ quoteInput }, { verifiedUser }) => {
     const { quote, author, year } = quoteInput;
     const newQuote = new Quote({
       quote,
       author,
       year,
-      userId: verifiedUser._id
+      userId: verifiedUser._id,
     });
-    console.log (newQuote)
-    const createdQuote = await newQuote.save();
-    return {
-      ...createdQuote.toJSON()
-    };
+
+    return await newQuote.save();
   },
   updateQuote: async ({ _id, quoteInput }) => {
-    console.log(_id)
     const { quote, author, year } = quoteInput;
     const updatedQuote = await Quote.findByIdAndUpdate(
       _id,
       {
         quote,
         author,
-        year
+        year,
       },
       { new: true }
     );
     if (!updatedQuote) {
       throw new Error("No quote found!");
     }
-    return {
-      ...updatedQuote.toJSON()
-    };
+    return updatedQuote;
   },
   deleteQuote: async ({ id: _id }) => {
     const deletedQuote = await Quote.findByIdAndDelete(_id);
     if (!deletedQuote) {
       throw new Error(`No quote with id ${_id} found!`);
     }
-    return {
-      ...deletedQuote.toJSON()
-    };
+    return deletedQuote;
   },
 };
