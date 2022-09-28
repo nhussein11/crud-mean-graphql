@@ -13,7 +13,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(authenticate);
+// app.use(authenticate);
 
 app.get('/', (req,res) => {
   res.send("Welcome!")

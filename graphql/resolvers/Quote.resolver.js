@@ -15,10 +15,7 @@ module.exports = {
     });
     const createdQuote = await newQuote.save();
     return {
-      ...createdQuote.toJSON(),
-      _id: createdQuote._id.toString(),
-      quote: createdQuote.quote,
-      author: createdQuote.author,
+      ...createdQuote.toJSON()
     };
   },
   updateQuote: async ({ _id, quoteInput }) => {
@@ -37,8 +34,7 @@ module.exports = {
       throw new Error("No quote found!");
     }
     return {
-      ...updatedQuote.toJSON(),
-      _id: updatedQuote._id.toString(),
+      ...updatedQuote.toJSON()
     };
   },
   deleteQuote: async ({ id: _id }) => {
@@ -47,8 +43,7 @@ module.exports = {
       throw new Error(`No quote with id ${_id} found!`);
     }
     return {
-      ...deletedQuote.toJSON(),
-      _id: deletedQuote._id.toString(),
+      ...deletedQuote.toJSON()
     };
   },
 };
