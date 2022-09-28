@@ -1,4 +1,5 @@
-const { User} = require('../../database/models')
+const { User } = require("../../database/models");
+const { createJWTToken } = require("../../utils/auth");
 
 module.exports = {
   allUsers: async () => {
@@ -6,12 +7,14 @@ module.exports = {
     return users;
   },
   getUser: async ({ email, password }) => {
-    const user = await User.findOne({ email, password });
+    const user = await User.findOne({ email, password }).select('password');
     if (!user) {
       return;
     }
+    const token = createJWTToken(user);
+    console.log(token)
 
-    return user;
+    return { user, token };
   },
   createUser: async ({ userInput }) => {
     const { name, address, email, password } = userInput;
@@ -22,13 +25,12 @@ module.exports = {
       password,
     });
     const createdUser = await newUser.save();
+
+    const token = createJWTToken(createdUser);
+
     return {
       ...createdUser.toJSON(),
-      _id: createdUser._id.toString(),
-      name: createdUser.name,
-      address: createdUser.address,
-      email: createdUser.email,
-      password: createdUser.password,
+      token,
     };
   },
   updateUser: async ({ id: _id, userInput }) => {
