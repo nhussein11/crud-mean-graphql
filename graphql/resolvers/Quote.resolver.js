@@ -5,7 +5,8 @@ module.exports = {
     const quotes = await Quote.find();
     return quotes;
   },
-  createQuote: async ({ quoteInput }) => {
+  createQuote: async ({ quoteInput }, {verifiedUser}) => {
+    console.log( 'verifiedUser', verifiedUser)
     const { quote, author, year } = quoteInput;
     const newQuote = new Quote({
       quote,

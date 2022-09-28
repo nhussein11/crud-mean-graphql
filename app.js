@@ -4,6 +4,7 @@ const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 
 const { connectToDatabase } = require("./database/connection");
+const { authenticate } = require("./middlewares/auth");
 
 const graphqlSchema = require("./graphql/schema/index.schema");
 const graphqlResolver = require("./graphql/resolvers/index.resolver");
@@ -12,6 +13,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(authenticate);
+
+app.get('/', (req,res) => {
+  res.send("Welcome!")
+})
+
 app.use(
   "/graphql",
   graphqlHTTP({
