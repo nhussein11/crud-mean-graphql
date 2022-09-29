@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gql } from 'apollo-angular';
 
-import { LoginService } from 'src/app/components/auth/services/login.service';
+import { AuthService } from '../services/auth.service';
 
 const LOGIN_QUERY = gql`
   query GetUser($email: String!, $password: String!) {
@@ -28,17 +28,16 @@ export class LoginComponent {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _loginService: LoginService
+    private _authService: AuthService
   ) {}
 
   handleLogin() {
     const { email, password } = this.loginForm.value;
 
-    this._loginService
-      .handleLoginQuery(LOGIN_QUERY, {
-        email,
-        password,
-      })
-      .subscribe();
+    this._authService.handleLoginQuery(LOGIN_QUERY, {
+      email,
+      password,
+    });
+    // .subscribe();
   }
 }
