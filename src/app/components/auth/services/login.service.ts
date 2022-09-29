@@ -15,13 +15,14 @@ export class LoginService {
     variables: object
   ) {
     return this._apollo
-      .watchQuery<LoginApiResponse>({
+      .watchQuery<any>({
         query,
         variables,
       })
       .valueChanges.pipe(
         take(1),
-        map((result: ApolloQueryResult<LoginApiResponse>) => {
+        map((result: ApolloQueryResult<any>) => {
+          console.log(result.data.getUser);
           return result.data.getUser;
         })
       );
