@@ -1,25 +1,36 @@
 import { NgModule } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
-import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
+import { APOLLO_NAMED_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 
-const uri = 'http://localhost:4000/graphql';
+const authUri = 'http://localhost:4000/graphql/auth';
+const defaultUri = 'http://localhost:4000/graphql';
 
-export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+export function createDefaultApollo(
+  httpLink: HttpLink
+): Record<string, ApolloClientOptions<any>> {
   return {
-    link: httpLink.create({ uri }),
-    cache: new InMemoryCache({
-      typePolicies: {
-        Quotes: {
-          keyFields: ['_id'],
-          fields: {
-            allQuotes: {
-              merge: true,
+    default: {
+      name: 'default',
+      link: httpLink.create({ uri: defaultUri }),
+      cache: new InMemoryCache({
+        typePolicies: {
+          Quotes: {
+            keyFields: ['_id'],
+            fields: {
+              allQuotes: {
+                merge: true,
+              },
             },
           },
         },
-      },
-    }),
+      }),
+    },
+    auth: {
+      name: 'auth',
+      link: httpLink.create({ uri: authUri }),
+      cache: new InMemoryCache(),
+    },
   };
 }
 
@@ -27,8 +38,8 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   exports: [ApolloModule],
   providers: [
     {
-      provide: APOLLO_OPTIONS,
-      useFactory: createApollo,
+      provide: APOLLO_NAMED_OPTIONS,
+      useFactory: createDefaultApollo,
       deps: [HttpLink],
     },
   ],

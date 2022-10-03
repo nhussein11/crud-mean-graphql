@@ -1,4 +1,5 @@
 import {
+  HTTP_INTERCEPTORS,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -16,20 +17,22 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    console.log('token:', this._authService.token)
     const requestAuthorized = request.clone({
       headers: request.headers.set(
         'authorization',
         `Bearer ${this._authService.token}`
       ),
     });
+    console.log(requestAuthorized);
 
     return next.handle(requestAuthorized);
   }
 }
 
-// export const AuthInterceptorProvider = {
-//   provide: HTTP_INTERCEPTORS,
-//   useClass: AuthInterceptor,
-//   multi: true,
-//   deps: [AuthService],
-// };
+export const AuthInterceptorProvider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true,
+  deps: [AuthService],
+};
