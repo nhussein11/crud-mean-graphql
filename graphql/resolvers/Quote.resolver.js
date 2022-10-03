@@ -2,10 +2,8 @@ const { Quote } = require("../../database/models");
 
 module.exports = {
   allQuotes: async (_, { verifiedUser }) => {
-    console.log(verifiedUser)
     const { _id: userId } = verifiedUser;
     const quotes = await Quote.find({ userId });
-    console.log('quotes', quotes)
     return quotes;
   },
   createQuote: async ({ quoteInput }, { verifiedUser }) => {

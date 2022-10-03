@@ -7,10 +7,9 @@ const { connectToDatabase } = require("./database/connection");
 const { authenticate } = require("./middlewares/auth");
 
 const graphqlSchema = require("./graphql/schema/index.schema");
-const graphqlResolver = require("./graphql/resolvers/index.resolver");
-const { getUser } = require("./graphql/resolvers/User.resolver");
+
 const graphqlUserResolver = require("./graphql/resolvers/User.resolver");
-// const graphqlQuoteResolver = require("./graphql/resolvers/Quote.resolver");
+const graphqlQuoteResolver = require("./graphql/resolvers/Quote.resolver");
 
 const app = express();
 
@@ -32,7 +31,7 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema: graphqlSchema,
-    rootValue: graphqlResolver,
+    rootValue: graphqlQuoteResolver,
     graphiql: true,
   })
   );
