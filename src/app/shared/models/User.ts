@@ -5,6 +5,9 @@ export interface User {
   email: string;
   password: string;
 }
+export interface Token {
+  token: string;
+}
 export interface LoginApiResponse {
-  getUser: User;
+  getUser: Token;
 }

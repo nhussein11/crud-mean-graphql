@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { map, take } from 'rxjs';
+import { LoginApiResponse } from 'src/app/shared/models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -22,13 +23,13 @@ export class AuthService {
   ) {
     return this._apollo
       .use('auth')
-      .watchQuery<any>({
+      .watchQuery<LoginApiResponse>({
         query,
         variables,
       })
       .valueChanges.pipe(
         take(1),
-        map((result: ApolloQueryResult<any>) => {
+        map((result: ApolloQueryResult<LoginApiResponse>) => {
           this.tokenValue = result.data.getUser.token;
           return this.token;
         })
