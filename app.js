@@ -2,18 +2,29 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
+const unless = require('express-unless');
 
 const { connectToDatabase } = require("./database/connection");
 const { authenticate } = require("./middlewares/auth");
 
 const graphqlSchema = require("./graphql/schema/index.schema");
 const graphqlResolver = require("./graphql/resolvers/index.resolver");
+const { getUser } = require("./graphql/resolvers/User.resolver");
+// const graphqlUserResolver = require("./graphql/resolvers/User.resolver");
+// const graphqlQuoteResolver = require("./graphql/resolvers/Quote.resolver");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(authenticate);
+
+app.post('/auth', async (req, res) => {
+  const token = await getUser(req)
+  res.status(200).send({token});
+})
+
+app.use(authenticate.unless({path: ['/auth']}));
+
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -21,12 +32,7 @@ app.use(
     rootValue: graphqlResolver,
     graphiql: true,
   })
-);
-
-app.get('/', (req,res) => {
-  res.send("Welcome!")
-})
-
+  );
 
 connectToDatabase()
   .then(() => {

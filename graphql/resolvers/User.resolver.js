@@ -6,7 +6,9 @@ module.exports = {
     const users = await User.find();
     return users;
   },
-  getUser: async ({ email, password }) => {
+  getUser: async (req) => {
+    console.log(req.body)
+    const { email, password } = req.body
     const user = await User.findOne({ email, password }).select("+password");
 
     if (!user || password !== user.password) {
@@ -14,9 +16,8 @@ module.exports = {
     }
 
     const token = createJWTToken(user);
-    console.log(token);
-
-    return { ...user.toJSON(), token };
+    
+    return { token };
   },
   createUser: async ({ userInput }) => {
     const { name, address, email, password } = userInput;
