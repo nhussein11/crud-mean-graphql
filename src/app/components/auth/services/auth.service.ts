@@ -21,6 +21,7 @@ export class AuthService {
     variables: object
   ) {
     return this._apollo
+      .use('auth')
       .watchQuery<any>({
         query,
         variables,
@@ -29,7 +30,7 @@ export class AuthService {
         take(1),
         map((result: ApolloQueryResult<any>) => {
           this.tokenValue = result.data.getUser.token;
-          return result.data.getUser;
+          return this.token;
         })
       )
       .subscribe();

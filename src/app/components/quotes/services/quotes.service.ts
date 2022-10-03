@@ -37,6 +37,7 @@ export class QuotesService {
 
   private getQuotes(): void {
     this._apollo
+      .use('default')
       .watchQuery<QuotesApiResponse>({
         query: QUOTES,
       })

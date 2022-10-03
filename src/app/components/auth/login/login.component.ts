@@ -38,6 +38,5 @@ export class LoginComponent {
       email,
       password,
     });
-    // .subscribe();
   }
 }

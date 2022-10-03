@@ -15,6 +15,7 @@ export class QuoteService {
     mutation: TypedDocumentNode<unknown, unknown>
   ) {
     return this._apollo
+      .use('default')
       .mutate({
         mutation,
         variables: quoteToHandle,
