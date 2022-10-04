@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { Apollo, TypedDocumentNode } from 'apollo-angular';
+import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
 import { map, take } from 'rxjs';
 
 import { LoginApiResponse } from 'src/app/shared/models/User';
@@ -9,7 +9,7 @@ import { LoginApiResponse } from 'src/app/shared/models/User';
   providedIn: 'root',
 })
 export class AuthService {
-  // private apollo: ApolloBase;
+  private apollo: ApolloBase;
   private _token!: string;
   get token(): string {
     return this._token;
@@ -18,7 +18,7 @@ export class AuthService {
     this._token = _tokenValue;
   }
   constructor(private _apollo: Apollo) {
-    // this.apollo = this._apollo.use('auth');
+    this.apollo = this._apollo.use('auth');
   }
 
   public handleLoginQuery(
