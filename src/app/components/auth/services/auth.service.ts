@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { Apollo, TypedDocumentNode } from 'apollo-angular';
+import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
 import { map, take } from 'rxjs';
+
 import { LoginApiResponse } from 'src/app/shared/models/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private apollo: ApolloBase;
   private _token!: string;
   get token(): string {
     return this._token;
@@ -15,14 +17,15 @@ export class AuthService {
   set tokenValue(_tokenValue: string) {
     this._token = _tokenValue;
   }
-  constructor(private _apollo: Apollo) {}
+  constructor(private _apollo: Apollo) {
+    this.apollo = this._apollo.use('auth');
+  }
 
   public handleLoginQuery(
     query: TypedDocumentNode<unknown, unknown>,
     variables: object
   ) {
-    return this._apollo
-      .use('auth')
+    return this.apollo
       .watchQuery<LoginApiResponse>({
         query,
         variables,
@@ -34,6 +37,6 @@ export class AuthService {
           return this.token;
         })
       )
-      .subscribe();
+      .subscribe(console.log);
   }
 }

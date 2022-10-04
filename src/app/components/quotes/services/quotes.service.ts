@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { Apollo } from 'apollo-angular';
+import { Apollo, ApolloBase } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { Quote, QuotesApiResponse } from '../../../shared/models/Quote';
 
@@ -22,6 +22,7 @@ export const QUOTES = gql`
   providedIn: 'root',
 })
 export class QuotesService {
+  private apollo: ApolloBase;
   private _quotesSubject = new BehaviorSubject<Quote[]>([]);
 
   get quotes() {
@@ -32,12 +33,12 @@ export class QuotesService {
   }
 
   constructor(private _apollo: Apollo) {
+    this.apollo = this._apollo.use('default');
     this.getQuotes();
   }
 
   private getQuotes(): void {
-    this._apollo
-      .use('default')
+    this.apollo
       .watchQuery<QuotesApiResponse>({
         query: QUOTES,
       })
@@ -45,7 +46,8 @@ export class QuotesService {
         map((result: ApolloQueryResult<QuotesApiResponse>) => {
           const { allQuotes } = result.data;
           this.quotesData = allQuotes;
-        })
+        }),
+        catchError(error => of(error))
       )
       .subscribe();
   }
