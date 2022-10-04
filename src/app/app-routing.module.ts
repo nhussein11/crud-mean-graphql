@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './shared/guards/auth.guard';
+
 const routes: Routes = [
   {
     path: 'home',
@@ -13,6 +15,7 @@ const routes: Routes = [
       import('./components/quotes/quote-list/quote-list.module').then(
         m => m.QuoteListModule
       ),
+    canActivate: [AuthGuard],
   },
   {
     path: '',
