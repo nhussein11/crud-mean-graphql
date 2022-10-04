@@ -1,20 +1,20 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { InMemoryCache } from '@apollo/client/core';
-import {
-  APOLLO_NAMED_OPTIONS,
-  ApolloModule,
-  NamedOptions,
-} from 'apollo-angular';
+import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 
-const authUri = 'http://localhost:4000/graphql/auth';
-const defaultUri = 'http://localhost:4000/graphql';
+@NgModule({
+  imports: [HttpClientModule, ApolloModule],
+})
+export class GraphQLModule {
+  private readonly defaultUri: string = 'http://localhost:4000/graphql';
+  private readonly authUri: string = 'http://localhost:4000/graphql/auth';
 
-export function createDefaultApollo(httpLink: HttpLink): NamedOptions {
-  return {
-    default: {
-      // name: 'default',
-      link: httpLink.create({ uri: defaultUri }),
+  constructor(apollo: Apollo, httpLink: HttpLink) {
+    const defaultOptions = { uri: this.defaultUri };
+    apollo.createDefault({
+      link: httpLink.create(defaultOptions),
       cache: new InMemoryCache({
         typePolicies: {
           Quotes: {
@@ -27,23 +27,12 @@ export function createDefaultApollo(httpLink: HttpLink): NamedOptions {
           },
         },
       }),
-    },
-    auth: {
-      // name: 'auth',
-      link: httpLink.create({ uri: authUri }),
-      cache: new InMemoryCache(),
-    },
-  };
-}
+    });
 
-@NgModule({
-  exports: [ApolloModule],
-  providers: [
-    {
-      provide: APOLLO_NAMED_OPTIONS,
-      useFactory: createDefaultApollo,
-      deps: [HttpLink],
-    },
-  ],
-})
-export class GraphQLModule {}
+    const authOptions = { uri: this.authUri };
+    apollo.createNamed('auth', {
+      link: httpLink.create(authOptions),
+      cache: new InMemoryCache(),
+    });
+  }
+}
