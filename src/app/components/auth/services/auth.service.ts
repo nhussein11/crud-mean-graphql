@@ -25,8 +25,7 @@ export class AuthService {
     query: TypedDocumentNode<unknown, unknown>,
     variables: object
   ) {
-    return this._apollo
-      .use('auth')
+    return this.apollo
       .watchQuery<LoginApiResponse>({
         query,
         variables,
