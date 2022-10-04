@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
-
-constructor() { }
-
+  private _token!: string;
+  get token(): string {
+    return this._token;
+  }
+  set tokenValue(_tokenValue: string) {
+    this._token = _tokenValue;
+  }
 }

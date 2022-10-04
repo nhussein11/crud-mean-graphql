@@ -9,10 +9,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { TokenService } from 'src/app/components/auth/services/token.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private _authService: AuthService) {}
+  constructor(private _tokenService: TokenService) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -20,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const requestAuthorized = request.clone({
       headers: request.headers.set(
         'authorization',
-        `Bearer ${this._authService.token}`
+        `Bearer ${this._tokenService.token}`
       ),
     });
 

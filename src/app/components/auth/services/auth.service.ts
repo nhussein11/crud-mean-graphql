@@ -5,19 +5,15 @@ import { map, take } from 'rxjs';
 
 import { LoginApiResponse } from 'src/app/shared/models/User';
 
+import { TokenService } from './token.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apollo: ApolloBase;
-  private _token!: string;
-  get token(): string {
-    return this._token;
-  }
-  set tokenValue(_tokenValue: string) {
-    this._token = _tokenValue;
-  }
-  constructor(private _apollo: Apollo) {
+
+  constructor(private _apollo: Apollo, private _tokenService: TokenService) {
     this.apollo = this._apollo.use('auth');
   }
 
@@ -33,8 +29,8 @@ export class AuthService {
       .valueChanges.pipe(
         take(1),
         map((result: ApolloQueryResult<LoginApiResponse>) => {
-          this.tokenValue = result.data.getUser.token;
-          return this.token;
+          this._tokenService.tokenValue = result.data.getUser.token;
+          // return this.token;
         })
       )
       .subscribe(console.log);
