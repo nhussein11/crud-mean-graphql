@@ -5,12 +5,16 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class TokenService {
-  constructor(private _cookiesService: CookieService) {}
+  private _token: string;
+  constructor(private _cookieService: CookieService) {
+    console.log('Token value: ');
+    this._token = this._cookieService.get('token');
+  }
 
   get token(): string {
-    return this._cookiesService.get('token');
+    return this._token;
   }
   set tokenValue(_tokenValue: string) {
-    this._cookiesService.set('token', _tokenValue);
+    this._cookieService.set('token', _tokenValue, 1, '/');
   }
 }

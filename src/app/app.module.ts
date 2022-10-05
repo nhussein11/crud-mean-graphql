@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
+import { PrimengModule } from './primeng/primeng.module';
 import { AuthInterceptorProvider } from './shared/interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 
@@ -19,8 +21,9 @@ import { SharedModule } from './shared/shared.module';
     GraphQLModule,
     HttpClientModule,
     SharedModule,
+    PrimengModule,
   ],
-  providers: [AuthInterceptorProvider, CookieService],
+  providers: [AuthInterceptorProvider, CookieService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

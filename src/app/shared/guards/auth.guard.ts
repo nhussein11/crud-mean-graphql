@@ -1,15 +1,35 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
+import { ErrorSeverity } from '../models/ErrorSeverity';
+import { HandleMessageService } from '../services/message.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+  constructor(
+    private _cookieService: CookieService,
+    private _router: Router,
+    private _handleMessage: HandleMessageService
+  ) {}
+
+  canActivate() {
+    const cookie = this._cookieService.check('token');
+
+    this.redirect(cookie);
+    return cookie;
   }
-  
+
+  private redirect(cookie: boolean) {
+    if (!cookie) {
+      this._handleMessage.showMessage(
+        ErrorSeverity.error,
+        'Error',
+        'User not logged'
+      );
+      this._router.navigate(['', 'home']);
+    }
+  }
 }
