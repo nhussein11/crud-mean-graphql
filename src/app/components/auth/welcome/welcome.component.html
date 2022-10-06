@@ -5,7 +5,9 @@
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-    <app-login *ngIf="!userLogged; else profile"></app-login>
+    <app-login
+      *ngIf="!userLogged; else profile"
+      (userName)="userLogged = $event"></app-login>
     <ng-template #profile>
       <app-profile></app-profile>
     </ng-template>

@@ -22,8 +22,8 @@ const LOGIN_QUERY = gql`
   templateUrl: './welcome.component.html',
 })
 export class WelcomeComponent {
-  userLogged: boolean;
+  userLogged!: string;
   constructor() {
-    this.userLogged = false;
+    // this.userLogged = false;
   }
 }
