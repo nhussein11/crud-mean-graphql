@@ -5,7 +5,7 @@ import { map, take } from 'rxjs';
 
 import { LoginApiResponse } from 'src/app/shared/models/User';
 
-import { TokenService } from './token.service';
+import { TokenService } from '../../../shared/services/token.service';
 
 @Injectable({
   providedIn: 'root',
