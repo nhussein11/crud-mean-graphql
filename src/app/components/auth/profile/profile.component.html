@@ -1,0 +1,18 @@
+<form [formGroup]="loginForm">
+  <app-ui-input
+    [form]="loginForm"
+    [formControlNameAccesor]="'name'"
+    [iconClass]="'bi bi-person'"></app-ui-input>
+  <p-button
+    class="flex justify-content-center"
+    label="Update"
+    icon="bi bi-save"
+    iconPos="right"
+    ></p-button>
+  <p-button
+    class="flex justify-content-center"
+    label="Logout"
+    icon="bi bi-box-arrow-right"
+    iconPos="right"
+    ></p-button>
+</form>

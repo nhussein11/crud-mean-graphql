@@ -1,29 +1,16 @@
-<p-card styleClass="mt-5 mx-3 w-15rem cursor-pointer overflow-hidden ">
-  <ng-template pTemplate="subtitle" >
-    <div class="flex justify-content-center">
-      <h2>Login <i class="bi bi-door-open"></i></h2>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="content">
-    <form [formGroup]="loginForm">
-      <app-ui-input
-        [form]="loginForm"
-        [formControlNameAccesor]="'email'"
-        [iconClass]="'bi bi-envelope'"
-      ></app-ui-input>
-      <app-ui-input
-        [form]="loginForm"
-        [formControlNameAccesor]="'password'"
-        [iconClass]="'bi bi-key'"
-      ></app-ui-input>
-      <p-button
-        class="flex justify-content-center"
-        label="Submit"
-        icon="bi bi-send-check"
-        iconPos="right"
-        (onClick)="handleLogin()"
-      ></p-button>
-    <!-- <app-ui-button></app-ui-button> -->
-    </form>
-  </ng-template>
-</p-card>
+<form [formGroup]="loginForm">
+  <app-ui-input
+    [form]="loginForm"
+    [formControlNameAccesor]="'email'"
+    [iconClass]="'bi bi-envelope'"></app-ui-input>
+  <app-ui-input
+    [form]="loginForm"
+    [formControlNameAccesor]="'password'"
+    [iconClass]="'bi bi-key'"></app-ui-input>
+  <p-button
+    class="flex justify-content-center"
+    label="Submit"
+    icon="bi bi-send-check"
+    iconPos="right"
+    (onClick)="handleLogin()"></p-button>
+</form>
