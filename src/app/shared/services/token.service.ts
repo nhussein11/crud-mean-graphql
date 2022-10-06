@@ -17,7 +17,6 @@ export class TokenService {
   }
 
   set tokenValue(_tokenValue: string) {
-    console.log(_tokenValue);
     this._tokenSubject$.next(_tokenValue);
   }
 }

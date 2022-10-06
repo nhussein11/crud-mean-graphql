@@ -29,10 +29,12 @@ export class AuthService {
       .valueChanges.pipe(
         take(1),
         map((result: ApolloQueryResult<LoginApiResponse>) => {
-          this._tokenService.tokenValue = result.data.getUser.token;
-          // return this.token;
+          const { token, user } = result.data.getUser;
+          this._tokenService.tokenValue = token;
+
+          return user.name;
         })
       )
-      .subscribe(console.log);
+ ;
   }
 }
