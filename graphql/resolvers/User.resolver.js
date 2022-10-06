@@ -15,7 +15,7 @@ module.exports = {
 
     const token = createJWTToken(user);
 
-    return { token };
+    return { token, user }
   },
   createUser: async ({ userInput }) => {
     const { name, address, email, password } = userInput;
