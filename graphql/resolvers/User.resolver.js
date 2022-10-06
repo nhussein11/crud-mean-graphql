@@ -7,15 +7,16 @@ module.exports = {
     return users;
   },
   getUser: async ({ email, password }) => {
-    const user = await User.findOne({ email, password }).select("+password");
+    let user = await User.findOne({ email, password }).select("+password");
 
     if (!user || password !== user.password) {
       throw new Error("Invalid credentials");
     }
 
     const token = createJWTToken(user);
+    ({password, ...userToReturn} = user.toJSON())
 
-    return { token, user }
+    return { token, user:userToReturn };
   },
   createUser: async ({ userInput }) => {
     const { name, address, email, password } = userInput;

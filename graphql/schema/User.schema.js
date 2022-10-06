@@ -6,7 +6,7 @@ const types = `
         email: String!
         password: String!
     }
-    type LoginData {
+    type LoginResponse {
         token: String
         user: User
     }
@@ -20,7 +20,7 @@ const types = `
 
 const queries = `
     allUsers: [User!]!
-    getUser(email: String!, password: String!) : LoginData
+    getUser(email: String!, password: String!) : LoginResponse
 `;
 
 const mutations = `
