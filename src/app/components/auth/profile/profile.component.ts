@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent {
+  @Output() profile: EventEmitter<string> = new EventEmitter();
+
   loginForm: FormGroup = this._formBuilder.group(
     {
       name: ['nico', [Validators.required]],
@@ -13,4 +15,8 @@ export class ProfileComponent {
     { updateOn: 'blur' }
   );
   constructor(private _formBuilder: FormBuilder) {}
+
+  logout() {
+    this.profile.emit('');
+  }
 }

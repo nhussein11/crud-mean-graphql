@@ -9,7 +9,7 @@
       *ngIf="!userLogged; else profile"
       (userName)="userLogged = $event"></app-login>
     <ng-template #profile>
-      <app-profile></app-profile>
+      <app-profile (profile)="userLogged = $event"></app-profile>
     </ng-template>
   </ng-template>
 </p-card>
