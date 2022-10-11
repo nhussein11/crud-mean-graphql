@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { gql } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 
@@ -12,6 +11,8 @@ const LOGIN_QUERY = gql`
       token
       user {
         name
+        email
+        address
       }
     }
   }

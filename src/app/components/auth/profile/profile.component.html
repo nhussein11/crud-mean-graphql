@@ -1,8 +1,16 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="profileForm">
   <app-ui-input
-    [form]="loginForm"
+    [form]="profileForm"
     [formControlNameAccesor]="'name'"
     [iconClass]="'bi bi-person'"></app-ui-input>
+    <app-ui-input
+    [form]="profileForm"
+    [formControlNameAccesor]="'email'"
+    [iconClass]="'bi bi-envelope'"></app-ui-input>
+    <app-ui-input
+    [form]="profileForm"
+    [formControlNameAccesor]="'address'"
+    [iconClass]="'bi bi-signpost-split'"></app-ui-input>
   <p-button
     class="flex justify-content-center"
     label="Update"
