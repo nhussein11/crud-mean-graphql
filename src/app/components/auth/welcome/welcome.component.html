@@ -5,11 +5,9 @@
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-    <app-login
-      *ngIf="!_userLogged$; else profile"
-      (userName)="_userLogged$ = $event"></app-login>
-    <ng-template #profile>
-      <app-profile (profile)="_userLogged$ = $event"></app-profile>
-    </ng-template>
+    <ng-container *ngIf="{ isLoggedIn: (_userLogged$ | async) } as observables">
+      <app-login *ngIf="!observables.isLoggedIn?.name"></app-login>
+      <app-profile *ngIf="observables.isLoggedIn?.name"></app-profile>
+    </ng-container>
   </ng-template>
 </p-card>

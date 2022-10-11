@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { gql } from 'apollo-angular';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { AuthService } from '../services/auth.service';
 
@@ -22,8 +22,6 @@ const LOGIN_QUERY = gql`
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnDestroy {
-  @Output() userName: EventEmitter<string> = new EventEmitter();
-  // public userName!: string;
   private _loginSubscription!: Subscription;
 
   loginForm: FormGroup = this._formBuilder.group(
@@ -47,7 +45,6 @@ export class LoginComponent implements OnDestroy {
         email,
         password,
       })
-      .pipe(tap(userName => this.userName.emit(userName)))
       .subscribe();
   }
 

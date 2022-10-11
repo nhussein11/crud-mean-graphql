@@ -37,6 +37,7 @@ export class AuthService {
           const { token, user } = result.data.getUser;
           this._tokenService.tokenValue = token;
           this._userLoggedService.userLoggedValue = user;
+          console.log('login', this._userLoggedService.userLogged);
           return user.name;
         })
       );
