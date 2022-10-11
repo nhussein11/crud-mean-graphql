@@ -35,7 +35,10 @@ module.exports = {
       token,
     };
   },
-  updateUser: async ({ id: _id, userInput }) => {
+  updateUser: async ({ _id, userInput }) => {
+    if (!_id) {
+      throw new Error("No id provided!");
+    }
     const { name, address, email, password } = userInput;
     const updatedUser = await User.findByIdAndUpdate(
       _id,
@@ -47,7 +50,7 @@ module.exports = {
       },
       { new: true }
     );
-
+    
     if (!updatedUser) {
       throw new Error("No user found!");
     }

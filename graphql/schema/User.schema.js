@@ -14,7 +14,6 @@ const types = `
         name: String!
         address: String!
         email: String!
-        password: String!
     }
 `;
 
