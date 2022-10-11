@@ -6,10 +6,10 @@
   </ng-template>
   <ng-template pTemplate="content">
     <app-login
-      *ngIf="!userLogged; else profile"
-      (userName)="userLogged = $event"></app-login>
+      *ngIf="!_userLogged$; else profile"
+      (userName)="_userLogged$ = $event"></app-login>
     <ng-template #profile>
-      <app-profile (profile)="userLogged = $event"></app-profile>
+      <app-profile (profile)="_userLogged$ = $event"></app-profile>
     </ng-template>
   </ng-template>
 </p-card>

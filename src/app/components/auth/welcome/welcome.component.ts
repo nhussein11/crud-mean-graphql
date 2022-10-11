@@ -1,29 +1,15 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { gql } from 'apollo-angular';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AuthService } from '../services/auth.service';
-
-const LOGIN_QUERY = gql`
-  query GetUser($email: String!, $password: String!) {
-    getUser(email: $email, password: $password) {
-      token
-      user {
-        name
-      }
-    }
-  }
-`;
+import { UserWithoutPassword } from 'src/app/shared/models/User';
+import { UserLoggedService } from 'src/app/shared/services/user-logged.service';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
 })
 export class WelcomeComponent {
-  userLogged!: string;
-  constructor() {
-    // this.userLogged = false;
-  }
+  _userLogged$: Observable<UserWithoutPassword> =
+    this._userLoggedService.userLogged;
+  constructor(private _userLoggedService: UserLoggedService) {}
 }

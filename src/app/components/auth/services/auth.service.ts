@@ -4,6 +4,7 @@ import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
 import { map, take } from 'rxjs';
 
 import { LoginApiResponse } from 'src/app/shared/models/User';
+import { UserLoggedService } from 'src/app/shared/services/user-logged.service';
 
 import { TokenService } from '../../../shared/services/token.service';
 
@@ -13,7 +14,11 @@ import { TokenService } from '../../../shared/services/token.service';
 export class AuthService {
   private apollo: ApolloBase;
 
-  constructor(private _apollo: Apollo, private _tokenService: TokenService) {
+  constructor(
+    private _apollo: Apollo,
+    private _tokenService: TokenService,
+    private _userLoggedService: UserLoggedService
+  ) {
     this.apollo = this._apollo.use('auth');
   }
 
@@ -31,7 +36,7 @@ export class AuthService {
         map((result: ApolloQueryResult<LoginApiResponse>) => {
           const { token, user } = result.data.getUser;
           this._tokenService.tokenValue = token;
-
+          this._userLoggedService.userLoggedValue = user;
           return user.name;
         })
       );

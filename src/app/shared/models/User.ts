@@ -5,9 +5,10 @@ export interface User {
   email: string;
   password: string;
 }
+export type UserWithoutPassword = Omit<User, 'password'>;
 export interface LoginResponse {
   token: string;
-  user: Omit<User, 'password'>;
+  user: UserWithoutPassword;
 }
 export interface LoginApiResponse {
   getUser: LoginResponse;
