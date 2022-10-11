@@ -1,13 +1,16 @@
 <p-card styleClass="mt-5 mx-3 w-15rem cursor-pointer overflow-hidden ">
   <ng-template pTemplate="subtitle">
     <div class="flex justify-content-center">
-      <h2>Login <i class="bi bi-door-open"></i></h2>
+      <h2>
+        {{ title }}
+        <i class="{{ iconClass }}"></i>
+      </h2>
     </div>
   </ng-template>
   <ng-template pTemplate="content">
-    <ng-container *ngIf="{ isLoggedIn: (_userLogged$ | async) } as observables">
-      <app-login *ngIf="!observables.isLoggedIn?.name"></app-login>
-      <app-profile *ngIf="observables.isLoggedIn?.name"></app-profile>
-    </ng-container>
+    <app-login *ngIf="!isUserLogged; else profile"></app-login>
+    <ng-template #profile>
+      <app-profile></app-profile>
+    </ng-template>
   </ng-template>
 </p-card>
