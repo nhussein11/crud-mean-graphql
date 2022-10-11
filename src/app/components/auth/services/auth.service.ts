@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
-import { map, take } from 'rxjs';
+import { take, tap } from 'rxjs';
 
 import { LoginApiResponse } from 'src/app/shared/models/User';
 import { UserLoggedService } from 'src/app/shared/services/user-logged.service';
@@ -33,12 +33,10 @@ export class AuthService {
       })
       .valueChanges.pipe(
         take(1),
-        map((result: ApolloQueryResult<LoginApiResponse>) => {
+        tap((result: ApolloQueryResult<LoginApiResponse>) => {
           const { token, user } = result.data.getUser;
           this._tokenService.tokenValue = token;
           this._userLoggedService.userLoggedValue = user;
-          console.log('login', this._userLoggedService.userLogged);
-          return user.name;
         })
       );
   }
