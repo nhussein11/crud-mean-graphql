@@ -7,9 +7,7 @@ const { connectToDatabase } = require("./database/connection");
 const { authenticate } = require("./middlewares/auth");
 
 const graphqlSchema = require("./graphql/schema/index.schema");
-
-const graphqlUserResolver = require("./graphql/resolvers/User.resolver");
-const graphqlQuoteResolver = require("./graphql/resolvers/Quote.resolver");
+const graphqlResolver = require("./graphql/resolvers/index.resolver");
 
 const app = express();
 
@@ -18,19 +16,10 @@ app.use(cors());
 
 
 app.use(
-  "/graphql/auth",
-  graphqlHTTP({
-    schema: graphqlSchema,
-    rootValue: graphqlUserResolver,
-    graphiql: true,
-  })
-  );
-
-app.use(
   "/graphql",
   graphqlHTTP({
     schema: graphqlSchema,
-    rootValue: graphqlQuoteResolver,
+    rootValue: graphqlResolver,
     graphiql: true,
   })
   );
