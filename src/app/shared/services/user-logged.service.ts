@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { UPDATE_PROFILE_MUTATION } from 'src/app/components/auth/profile/profile.component';
-
 import { UserWithoutPassword } from '../models/User';
 
 @Injectable({
