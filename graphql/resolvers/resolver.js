@@ -20,14 +20,31 @@ const resolvers = {
 
       return { token, user: userToReturn };
     },
-    allQuotes: async (_, { verifiedUser }) => {
+    allQuotes: async (_root, _args, { verifiedUser }, _info) => {
       const { _id: userId } = verifiedUser;
       const quotes = await Quote.find({ userId });
       return quotes;
     },
   },
   Mutation: {
-    updateUser: async ({ _id, userInput }) => {
+    createUser: async (_root, { userInput }, _context, _info) => {
+        const { name, address, email, password } = userInput;
+        const newUser = new User({
+          name,
+          address,
+          email,
+          password,
+        });
+        const createdUser = await newUser.save();
+    
+        const token = createJWTToken(createdUser);
+    
+        return {
+          ...createdUser.toJSON(),
+          token,
+        };
+      },
+    updateUser: async (_root, { _id, userInput }, _context, _info) => {
       if (!_id) {
         throw new Error("No id provided!");
       }
@@ -51,7 +68,7 @@ const resolvers = {
         _id: updatedUser._id.toString(),
       };
     },
-    deleteUser: async ({ id: _id }) => {
+    deleteUser: async (_root, { id: _id }, _context, _info) => {
       const deletedUser = await User.findByIdAndDelete(_id);
       if (!deletedUser) {
         throw new Error(`No user with id ${_id} found!`);
@@ -61,7 +78,7 @@ const resolvers = {
         _id: deletedUser._id.toString(),
       };
     },
-    createQuote: async ({ quoteInput }, { verifiedUser }) => {
+    createQuote: async (_root, { quoteInput }, { verifiedUser }, _info) => {
       const { quote, author, year } = quoteInput;
       const newQuote = new Quote({
         quote,
@@ -72,7 +89,12 @@ const resolvers = {
 
       return await newQuote.save();
     },
-    updateQuote: async ({ _id, quoteInput }, { verifiedUser }) => {
+    updateQuote: async (
+      _root,
+      { _id, quoteInput },
+      { verifiedUser },
+      _info
+    ) => {
       if (!verifiedUser) throw new Error("Unauthorized");
 
       const { _id: userId } = verifiedUser;
@@ -92,7 +114,7 @@ const resolvers = {
       }
       return updatedQuote;
     },
-    deleteQuote: async ({ id: _id }, { verifiedUser }) => {
+    deleteQuote: async (_root, { id: _id }, { verifiedUser }, _info) => {
       if (!verifiedUser) throw new Error("Unauthorized");
       const { _id: userId } = verifiedUser;
 
