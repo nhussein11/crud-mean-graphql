@@ -6,20 +6,22 @@ const { graphqlHTTP } = require("express-graphql");
 const { connectToDatabase } = require("./database/connection");
 const { authenticate } = require("./middlewares/auth");
 
-const graphqlSchema = require("./graphql/schema/index.schema");
-const graphqlResolver = require("./graphql/resolvers/index.resolver");
+const typeDefs = require("./graphql/schema/index.schema");
+// const resolvers = require("./graphql/resolvers/index.resolver");
+const resolvers = require("./graphql/resolvers/resolver");
+const { makeExecutableSchema } = require('@graphql-tools/schema')
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-
+const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: graphqlSchema,
-    rootValue: graphqlResolver,
+    schema: schema,
+    // rootValue: graphqlResolver,
     graphiql: true,
   })
   );

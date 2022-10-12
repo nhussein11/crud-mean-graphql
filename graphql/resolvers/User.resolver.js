@@ -2,21 +2,24 @@ const { User } = require("../../database/models");
 const { createJWTToken } = require("../../utils/auth");
 
 module.exports = {
-  allUsers: async () => {
-    const users = await User.find();
-    return users;
-  },
-  getUser: async ({ email, password }) => {
-    let user = await User.findOne({ email, password }).select("+password");
+  Query: {
+    allUsers: async () => {
+      const users = await User.find();
+      return users;
+    },
+    getUser: async ({ email, password }) => {
+      let user = await User.findOne({ email, password }).select("+password");
+  
+      if (!user || password !== user.password) {
+        throw new Error("Invalid credentials");
+      }
+  
+      const token = createJWTToken(user);
+      ({password, ...userToReturn} = user.toJSON())
+  
+      return { token, user:userToReturn };
+    },
 
-    if (!user || password !== user.password) {
-      throw new Error("Invalid credentials");
-    }
-
-    const token = createJWTToken(user);
-    ({password, ...userToReturn} = user.toJSON())
-
-    return { token, user:userToReturn };
   },
   createUser: async ({ userInput }) => {
     const { name, address, email, password } = userInput;
