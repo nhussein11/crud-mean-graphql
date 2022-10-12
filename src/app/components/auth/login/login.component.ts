@@ -10,6 +10,7 @@ const LOGIN_QUERY = gql`
     getUser(email: $email, password: $password) {
       token
       user {
+        _id
         name
         email
         address

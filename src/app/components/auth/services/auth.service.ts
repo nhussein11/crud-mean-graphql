@@ -30,6 +30,7 @@ export class AuthService {
       .watchQuery<LoginApiResponse>({
         query,
         variables,
+        fetchPolicy: 'network-only',
       })
       .valueChanges.pipe(
         take(1),

@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
         authorization: `Bearer ${this._token}`,
       },
     });
-
+    console.log(requestWithToken);
     return next
       .handle(requestWithToken)
       .pipe(tap(() => tokenSubscription.unsubscribe()));

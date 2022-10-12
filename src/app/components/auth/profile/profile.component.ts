@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gql } from 'apollo-angular';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 
 import { UserWithoutPassword } from 'src/app/shared/models/User';
 import { TokenService } from 'src/app/shared/services/token.service';
 import { UserLoggedService } from 'src/app/shared/services/user-logged.service';
 
-const UPDATE_PROFILE_MUTATION = gql`
+export const UPDATE_PROFILE_MUTATION = gql`
   mutation ($_id: ID!, $name: String!, $address: String!, $email: String!) {
     updateUser(
       _id: $_id
-      userInput: { name: $name, address: $address, email: $email }
+      userInput: { name: $name, email: $email, address: $address }
     ) {
       name
       address
@@ -24,7 +24,6 @@ const UPDATE_PROFILE_MUTATION = gql`
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  private _profileSubscription!: Subscription;
   profileForm: FormGroup = this._formBuilder.group(
     {
       name: ['', [Validators.required]],
@@ -33,6 +32,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     },
     { updateOn: 'blur' }
   );
+  private _profileSubscription!: Subscription;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _userLoggedService: UserLoggedService,
@@ -51,12 +52,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
-  logout() {
-    this._userLoggedService.userLoggedValue = {} as UserWithoutPassword;
-    this._tokenService.tokenValue = '';
+  updateProfile() {
+    const { name, email, address } = this.profileForm.value;
+    this._profileSubscription = this._userLoggedService.userLogged
+      .pipe(
+        tap(({ _id }) => {
+          this._userLoggedService.handleUpdateProfileMutation(
+            UPDATE_PROFILE_MUTATION,
+            {
+              _id,
+              name,
+              email,
+              address,
+            }
+          );
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
     this._profileSubscription.unsubscribe();
+    this._userLoggedService.userLoggedValue = {} as UserWithoutPassword;
+    this._tokenService.tokenValue = '';
   }
 }

@@ -16,12 +16,13 @@
     label="Update"
     icon="bi bi-save"
     iconPos="right"
+    (onClick)="updateProfile()"
     ></p-button>
   <p-button
     class="flex justify-content-center"
     label="Logout"
     icon="bi bi-box-arrow-right"
     iconPos="right"
-    (onClick)="logout()"
+    (onClick)="ngOnDestroy()"
     ></p-button>
 </form>
