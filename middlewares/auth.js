@@ -1,4 +1,3 @@
-const { unless } = require("express-unless");
 const jwt = require("jsonwebtoken");
 
 const authenticate = (req, res, next) => {
@@ -12,7 +11,5 @@ const authenticate = (req, res, next) => {
     throw Error("Invalid Token");
   }
 };
-
-authenticate.unless = unless
 
 module.exports = { authenticate };

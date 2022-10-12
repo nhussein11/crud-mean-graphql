@@ -16,7 +16,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(authenticate.unless({path: ['/graphql/auth']}));
 
 app.use(
   "/graphql/auth",
