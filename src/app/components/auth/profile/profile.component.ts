@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { gql } from 'apollo-angular';
 import { Subscription, tap } from 'rxjs';
@@ -23,7 +23,7 @@ export const UPDATE_PROFILE_MUTATION = gql`
   selector: 'app-profile',
   templateUrl: './profile.component.html',
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   profileForm: FormGroup = this._formBuilder.group(
     {
       name: ['', [Validators.required]],
@@ -70,10 +70,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
-
-  ngOnDestroy(): void {
+  logout(): void {
     this._profileSubscription.unsubscribe();
-    this._userLoggedService.userLoggedValue = {} as UserWithoutPassword;
     this._tokenService.tokenValue = '';
+    this._userLoggedService.userLoggedValue = {} as UserWithoutPassword;
   }
 }
