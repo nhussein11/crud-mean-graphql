@@ -8,9 +8,6 @@ export class TokenService {
   private _tokenSubject$: BehaviorSubject<string> = new BehaviorSubject<string>(
     ''
   );
-  // constructor() {
-  //   this.tokenValue = '';
-  // }
 
   get token(): Observable<string> {
     return this._tokenSubject$.asObservable();

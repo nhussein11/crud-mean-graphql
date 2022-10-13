@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { untilDestroyed } from '@ngneat/until-destroy';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
 
 import { NewQuote, Quote } from '../../../shared/models/Quote';
@@ -20,6 +21,7 @@ export class QuoteService {
         variables: quoteToHandle,
         refetchQueries: [QUOTES],
       })
+      .pipe(untilDestroyed(this))
       .subscribe();
   }
 }

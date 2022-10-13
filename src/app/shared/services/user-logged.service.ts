@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { UserWithoutPassword } from '../models/User';
-
+@UntilDestroy()
 @Injectable({
   providedIn: 'root',
 })
@@ -34,6 +35,7 @@ export class UserLoggedService {
         mutation,
         variables: profileToUpdate,
       })
+      .pipe(untilDestroyed(this))
       .subscribe();
   }
 }

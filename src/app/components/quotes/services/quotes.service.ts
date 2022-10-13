@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Apollo, ApolloBase } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { BehaviorSubject, of } from 'rxjs';
@@ -17,7 +18,7 @@ export const QUOTES = gql`
     }
   }
 `;
-
+@UntilDestroy()
 @Injectable({
   providedIn: 'root',
 })
@@ -50,6 +51,7 @@ export class QuotesService {
         }),
         catchError(error => of(error))
       )
+      .pipe(untilDestroyed(this))
       .subscribe();
   }
 }
