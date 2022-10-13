@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { Apollo, ApolloBase, TypedDocumentNode } from 'apollo-angular';
+import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { take, tap } from 'rxjs';
 
 import { LoginApiResponse } from 'src/app/shared/models/User';
