@@ -15,7 +15,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+  context: ({ req, res }) => ({ req, res }),
+});
 
 const middlewares = {
   Query: {
