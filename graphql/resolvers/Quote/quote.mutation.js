@@ -1,12 +1,6 @@
-const { Quote } = require("../../database/models");
+const Quote = require("../../../database/models/Quote");
 
-module.exports = {
-  allQuotes: async (_, { verifiedUser }) => {
-    const { _id: userId } = verifiedUser;
-    const quotes = await Quote.find({ userId });
-    return quotes;
-  },
-  createQuote: async ({ quoteInput }, { verifiedUser }) => {
+const createQuote = async (_root, { quoteInput }, { verifiedUser }, _info) => {
     const { quote, author, year } = quoteInput;
     const newQuote = new Quote({
       quote,
@@ -16,8 +10,13 @@ module.exports = {
     });
 
     return await newQuote.save();
-  },
-  updateQuote: async ({ _id, quoteInput }, { verifiedUser }) => {
+  };
+const updateQuote = async (
+    _root,
+    { _id, quoteInput },
+    { verifiedUser },
+    _info
+  ) => {
     if (!verifiedUser) throw new Error("Unauthorized");
 
     const { _id: userId } = verifiedUser;
@@ -36,15 +35,16 @@ module.exports = {
       throw new Error("No quote found!");
     }
     return updatedQuote;
-  },
-  deleteQuote: async ({ id: _id }, { verifiedUser }) => {
+  };
+ const deleteQuote =  async (_root, { id: _id }, { verifiedUser }, _info) => {
     if (!verifiedUser) throw new Error("Unauthorized");
     const { _id: userId } = verifiedUser;
 
-    const deletedQuote = await Quote.findOneAndDelete({_id, userId});
+    const deletedQuote = await Quote.findOneAndDelete({ _id, userId });
     if (!deletedQuote) {
       throw new Error(`Invalid deleted!`);
     }
     return deletedQuote;
-  },
-};
+  };
+
+module.exports = { createQuote, updateQuote, deleteQuote };

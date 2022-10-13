@@ -5,24 +5,33 @@ const { graphqlHTTP } = require("express-graphql");
 
 const { connectToDatabase } = require("./database/connection");
 const { authenticate } = require("./middlewares/auth");
-
-const graphqlSchema = require("./graphql/schema/index.schema");
-const graphqlResolver = require("./graphql/resolvers/index.resolver");
+const { makeExecutableSchema } = require("@graphql-tools/schema");
+const { applyMiddleware } = require("graphql-middleware");
+const typeDefs = require("./graphql/schema/index.schema");
+const resolvers = require("./graphql/resolvers/resolvers");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+const middlewares = {
+  Query: {
+    allQuotes: authenticate,
+  },
+};
+
+const schemaWithMiddleware = applyMiddleware(schema, middlewares);
 
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: graphqlSchema,
-    rootValue: graphqlResolver,
+    schema: schemaWithMiddleware,
     graphiql: true,
   })
-  );
+);
 
 connectToDatabase()
   .then(() => {

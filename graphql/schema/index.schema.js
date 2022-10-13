@@ -15,15 +15,15 @@ schemas.forEach((s) => {
 
 module.exports = buildSchema(`
     ${types.join('\n')}
-    type RootQuery {    
+    type Query {    
         ${queries.join('\n')}
     }
-    type RootMutation {
+    type Mutation {
         ${mutations.join('\n')}
     }
     schema {
-        query: RootQuery
-        mutation: RootMutation
+        query: Query
+        mutation: Mutation
     }
 `);
 0.
