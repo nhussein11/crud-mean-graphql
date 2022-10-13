@@ -1,49 +1,37 @@
 const { Quote } = require("../../database/models");
 const { User } = require("../../database/models");
 const { createJWTToken } = require("../../utils/auth");
+const { allUsers, getUser } = require("./User/user.query");
 
 const resolvers = {
-  Query: {
-    allUsers: async () => {
-      const users = await User.find();
-      return users;
-    },
-    getUser: async (_root, { email, password }, _context, _info) => {
-      let user = await User.findOne({ email, password }).select("+password");
+  Query: { allUsers, getUser },
+  //   {
+  //     ...userQueries,
+  //     allQuotes: async (_root, _args, { verifiedUser }, _info) => {
+  //       const { _id: userId } = verifiedUser;
+  //       const quotes = await Quote.find({ userId });
+  //       return quotes;
+  //     },
+  //   }
 
-      if (!user || password !== user.password) {
-        throw new Error("Invalid credentials");
-      }
-
-      const token = createJWTToken(user);
-      ({ password, ...userToReturn } = user.toJSON());
-
-      return { token, user: userToReturn };
-    },
-    allQuotes: async (_root, _args, { verifiedUser }, _info) => {
-      const { _id: userId } = verifiedUser;
-      const quotes = await Quote.find({ userId });
-      return quotes;
-    },
-  },
   Mutation: {
     createUser: async (_root, { userInput }, _context, _info) => {
-        const { name, address, email, password } = userInput;
-        const newUser = new User({
-          name,
-          address,
-          email,
-          password,
-        });
-        const createdUser = await newUser.save();
-    
-        const token = createJWTToken(createdUser);
-    
-        return {
-          ...createdUser.toJSON(),
-          token,
-        };
-      },
+      const { name, address, email, password } = userInput;
+      const newUser = new User({
+        name,
+        address,
+        email,
+        password,
+      });
+      const createdUser = await newUser.save();
+
+      const token = createJWTToken(createdUser);
+
+      return {
+        ...createdUser.toJSON(),
+        token,
+      };
+    },
     updateUser: async (_root, { _id, userInput }, _context, _info) => {
       if (!_id) {
         throw new Error("No id provided!");
