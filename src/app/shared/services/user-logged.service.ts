@@ -8,7 +8,6 @@ import { UserWithoutPassword } from '../models/User';
   providedIn: 'root',
 })
 export class UserLoggedService {
-  private apollo: ApolloBase;
   private _userSubject$: BehaviorSubject<UserWithoutPassword> =
     new BehaviorSubject<UserWithoutPassword>({} as UserWithoutPassword);
 
@@ -19,9 +18,7 @@ export class UserLoggedService {
     this._userSubject$.next(user);
   }
 
-  constructor(private _apollo: Apollo) {
-    this.apollo = this._apollo.use('auth');
-  }
+  constructor(private _apollo: Apollo) {}
 
   public handleUpdateProfileMutation(
     mutation: TypedDocumentNode<unknown, unknown>,
@@ -32,7 +29,7 @@ export class UserLoggedService {
       email: string;
     }
   ) {
-    return this.apollo
+    return this._apollo
       .mutate({
         mutation,
         variables: profileToUpdate,

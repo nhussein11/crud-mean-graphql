@@ -12,21 +12,17 @@ import { TokenService } from '../../../shared/services/token.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private apollo: ApolloBase;
-
   constructor(
     private _apollo: Apollo,
     private _tokenService: TokenService,
     private _userLoggedService: UserLoggedService
-  ) {
-    this.apollo = this._apollo.use('auth');
-  }
+  ) {}
 
   public handleLoginQuery(
     query: TypedDocumentNode<unknown, unknown>,
     variables: object
   ) {
-    return this.apollo
+    return this._apollo
       .watchQuery<LoginApiResponse>({
         query,
         variables,

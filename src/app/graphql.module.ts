@@ -8,11 +8,10 @@ import { HttpLink } from 'apollo-angular/http';
   imports: [HttpClientModule, ApolloModule],
 })
 export class GraphQLModule {
-  private readonly defaultUri: string = 'http://localhost:4000/graphql';
-  private readonly authUri: string = 'http://localhost:4000/graphql/auth';
+  private readonly uri: string = 'http://localhost:4000/graphql';
 
   constructor(apollo: Apollo, httpLink: HttpLink) {
-    const defaultOptions = { uri: this.defaultUri };
+    const defaultOptions = { uri: this.uri };
     apollo.createDefault({
       link: httpLink.create(defaultOptions),
       cache: new InMemoryCache({
@@ -27,12 +26,6 @@ export class GraphQLModule {
           },
         },
       }),
-    });
-
-    const authOptions = { uri: this.authUri };
-    apollo.createNamed('auth', {
-      link: httpLink.create(authOptions),
-      cache: new InMemoryCache(),
     });
   }
 }
