@@ -9,6 +9,8 @@ const { makeExecutableSchema } = require("@graphql-tools/schema");
 const { applyMiddleware } = require("graphql-middleware");
 const typeDefs = require("./graphql/schema/index.schema");
 const resolvers = require("./graphql/resolvers/resolvers");
+const cookieParser = require("cookie-parser");
+
 
 const app = express();
 
@@ -28,6 +30,11 @@ const middlewares = {
 };
 
 const schemaWithMiddleware = applyMiddleware(schema, middlewares);
+app.use(cookieParser());
+app.use((req, res, next) => {
+  console.log(req.cookies["refresh-token"]);
+  next();
+});
 
 app.use(
   "/graphql",

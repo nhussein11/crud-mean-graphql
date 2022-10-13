@@ -2,9 +2,20 @@ const jwt = require("jsonwebtoken");
 
 const authenticate = async (resolve, root, args, context, info) => {
   try {
+    const accessToken = context.headers.authorization?.split(" ")[1] || "";
+    const refreshToken = context.req?.cookies?.refreshToken || "";
 
-    const token = context.headers.authorization?.split(" ")[1] || "";
-    const verified = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    if (!accessToken && !refreshToken) {
+      throw new Error("No token provided!");
+    }
+
+    if (!accessToken) {
+      const verified = jwt.verify(accessToken, process.env.JWT_REFRESH_SECRET_KEY);
+      context.verifiedUser = verified;
+      return resolve(root, args, context, info);
+    }
+
+    const verified = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET_KEY);
     context.verifiedUser = verified;
     return resolve(root, args, context, info);
 
