@@ -10,11 +10,12 @@ const { applyMiddleware } = require("graphql-middleware");
 const typeDefs = require("./graphql/schema/index.schema");
 const resolvers = require("./graphql/resolvers/resolvers");
 const cookieParser = require("cookie-parser");
+const corsMiddleware = require("./cors");
 
 const app = express();
+app.use(corsMiddleware);
 
 app.use(bodyParser.json());
-app.use(cors());
 app.use(cookieParser());
 
 const schema = makeExecutableSchema({

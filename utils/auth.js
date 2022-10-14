@@ -8,7 +8,7 @@ const createJWTAccessToken = (user) => {
   });
 };
 
-const createJWTRefreshToken = (user, res) => {
+const createJWTRefreshToken = (user) => {
   const { password, ...userInfoToSend } = user.toJSON();
 
   return jwt.sign(userInfoToSend, process.env.JWT_REFRESH_SECRET_KEY, {
