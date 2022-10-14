@@ -46,7 +46,6 @@ export class QuotesService {
       .valueChanges.pipe(
         map((result: ApolloQueryResult<QuotesApiResponse>) => {
           const { allQuotes } = result.data;
-          console.log(allQuotes);
           this.quotesData = allQuotes;
         }),
         catchError(error => of(error))

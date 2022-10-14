@@ -70,6 +70,7 @@ export class ProfileComponent implements OnInit {
       )
       .subscribe();
   }
+
   logout(): void {
     this._profileSubscription.unsubscribe();
     this._tokenService.tokenValue = '';

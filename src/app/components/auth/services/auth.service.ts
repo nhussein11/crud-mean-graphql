@@ -31,7 +31,7 @@ export class AuthService {
       .valueChanges.pipe(
         take(1),
         tap((result: ApolloQueryResult<LoginApiResponse>) => {
-          const { token, user } = result.data.getUser;
+          const { token, user } = result.data.signIn! || result.data.getUser!;
           this._tokenService.tokenValue = token;
           this._userLoggedService.userLoggedValue = user;
         })
