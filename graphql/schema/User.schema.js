@@ -19,7 +19,8 @@ const types = `
 
 const queries = `
     allUsers: [User!]!
-    getUser(email: String!, password: String!) : LoginResponse
+    getUser: LoginResponse
+    signIn(email: String!, password: String!) : LoginResponse
 `;
 
 const mutations = `

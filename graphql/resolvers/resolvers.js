@@ -1,4 +1,4 @@
-const { allUsers, getUser } = require("./User/user.query");
+const { allUsers, getUser, signIn } = require("./User/user.query");
 const { createUser, updateUser, deleteUser } = require("./User/user.mutation");
 
 const { allQuotes } = require("./Quote/quote.query");
@@ -9,7 +9,7 @@ const {
 } = require("./Quote/quote.mutation");
 
 const resolvers = {
-  Query: { allUsers, getUser, allQuotes },
+  Query: { allUsers, getUser, signIn, allQuotes },
   Mutation: {
     createUser,
     updateUser,

@@ -3,12 +3,10 @@ const jwt = require("jsonwebtoken");
 const authenticate = async (resolve, root, args, context, info) => {
   try {
     const accessToken = context.headers.authorization?.split(" ")[1] || "";
-    console.log('accessToken',accessToken);
     const refreshToken = context.cookies["refresh-token"] || "";
-    console.log('refreshToken',refreshToken);
     
     if (!accessToken && !refreshToken) {
-      throw new Error("No token provided!");
+      throw Error("No token provided!");
     }
 
     if (!accessToken) {
@@ -22,7 +20,7 @@ const authenticate = async (resolve, root, args, context, info) => {
     return resolve(root, args, context, info);
 
   } catch (error) {
-    throw Error("Invalid Token");
+    throw Error(error || "Invalid Token");
   }
 };
 module.exports = { authenticate };

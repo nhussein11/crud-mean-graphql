@@ -5,7 +5,7 @@ const {
   setRefreshTokenCookie,
 } = require("../../../utils/auth");
 
-const getUser = async (_root, { email, password }, { res }, _info) => {
+const signIn = async (_root, { email, password }, { res }, _info) => {
   let user = await User.findOne({ email, password }).select("+password");
 
   if (!user || password !== user.password) {
@@ -19,7 +19,8 @@ const getUser = async (_root, { email, password }, { res }, _info) => {
   
   ({ password, ...userToReturn } = user.toJSON());
 
-  return { token: accessToken, user: userToReturn };
+  const loginResponse = { token: accessToken, user: userToReturn };
+  return loginResponse;
 };
 
 const allUsers = async () => {
@@ -27,4 +28,13 @@ const allUsers = async () => {
   return users;
 };
 
-module.exports = { allUsers, getUser };
+const getUser = async (_root, _args, { verifiedUser }, _info) => {
+  const { _id: userId } = verifiedUser;
+  const user = await User.findById(userId);
+  const accessToken = createJWTAccessToken(user);
+  const loginResponse = { token: accessToken, user };
+  return loginResponse;
+};
+
+
+module.exports = { allUsers, getUser, signIn };

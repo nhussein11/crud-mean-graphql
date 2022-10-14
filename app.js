@@ -1,6 +1,5 @@
 const bodyParser = require("body-parser");
 const express = require("express");
-const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 
 const { connectToDatabase } = require("./database/connection");
@@ -27,6 +26,7 @@ const schema = makeExecutableSchema({
 const middlewares = {
   Query: {
     allQuotes: authenticate,
+    getUser: authenticate,
   },
 };
 
