@@ -11,5 +11,6 @@ export interface LoginResponse {
   user: UserWithoutPassword;
 }
 export interface LoginApiResponse {
-  getUser: LoginResponse;
+  getUser?: LoginResponse;
+  signIn?: LoginResponse;
 }

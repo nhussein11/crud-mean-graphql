@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 
-const LOGIN_QUERY = gql`
-  query GetUser($email: String!, $password: String!) {
-    getUser(email: $email, password: $password) {
+const SIGNIN_QUERY = gql`
+  query signIn($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
       token
       user {
         _id
@@ -43,7 +43,7 @@ export class LoginComponent implements OnDestroy {
     const { email, password } = this.loginForm.value;
 
     this._loginSubscription = this._authService
-      .handleLoginQuery(LOGIN_QUERY, {
+      .handleLoginQuery(SIGNIN_QUERY, {
         email,
         password,
       })
@@ -51,6 +51,8 @@ export class LoginComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._loginSubscription.unsubscribe();
+    if (this._loginSubscription) {
+      this._loginSubscription.unsubscribe();
+    }
   }
 }
