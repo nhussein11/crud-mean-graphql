@@ -11,8 +11,12 @@ export class GraphQLModule {
   private readonly uri: string = 'http://localhost:4000/graphql';
 
   constructor(apollo: Apollo, httpLink: HttpLink) {
-    const defaultOptions = { uri: this.uri };
-    apollo.createDefault({
+    const defaultOptions = {
+      uri: this.uri,
+      withcredentials: true,
+      // credentials: 'include',
+    };
+    apollo.create({
       link: httpLink.create(defaultOptions),
       cache: new InMemoryCache({
         typePolicies: {
