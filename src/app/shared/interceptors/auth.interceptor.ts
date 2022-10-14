@@ -22,13 +22,13 @@ export class AuthInterceptor implements HttpInterceptor {
     const tokenSubscription = this._tokenService.token
       .pipe(tap(token => (this._token = token)))
       .subscribe();
-    console.log(this._token);
     const requestWithToken = request.clone({
       setHeaders: {
         authorization: `Bearer ${this._token}`,
       },
+      withCredentials: true,
     });
-    console.log(requestWithToken);
+
     return next
       .handle(requestWithToken)
       .pipe(tap(() => tokenSubscription.unsubscribe()));
