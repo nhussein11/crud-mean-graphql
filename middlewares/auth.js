@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const authenticate = async (resolve, root, args, context, info) => {
   try {
-    const accessToken = context.headers.authorization?.split(" ")[1] || "";
-    const refreshToken = context.cookies["refresh-token"] || "";
+    const accessToken = context.headers.authorization?.split(" ")[1] || null;
+    const refreshToken = context.cookies["refresh-token"] || null;
     
     if (!accessToken && !refreshToken) {
       throw Error("No token provided!");
@@ -14,7 +14,7 @@ const authenticate = async (resolve, root, args, context, info) => {
       context.verifiedUser = verified;
       return resolve(root, args, context, info);
     }
-
+    
     const verified = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET_KEY);
     context.verifiedUser = verified;
     return resolve(root, args, context, info);
