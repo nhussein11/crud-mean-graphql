@@ -3,32 +3,35 @@ import { CanActivate, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
 import { ErrorSeverity } from '../models/ErrorSeverity';
+import { UserWithoutPassword } from '../models/User';
 import { HandleMessageService } from '../services/message.service';
-import { TokenService } from '../services/token.service';
+import { UserLoggedService } from '../services/user-logged.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  private _token!: string;
+  private _user!: UserWithoutPassword | null;
 
   constructor(
     private _router: Router,
     private _handleMessage: HandleMessageService,
-    private _tokenService: TokenService
+    private _userLoggedService: UserLoggedService
   ) {}
 
   canActivate() {
-    this._tokenService.token
+    this._userLoggedService.userLogged
       .pipe(
-        tap((token: string | null) => {
-          this._token = token || '';
+        tap((user: UserWithoutPassword | null) => {
+          this._user = user || null;
         })
       )
       .subscribe();
-    const isTokenExisting = this._token !== '' ? true : false;
-    this.redirect(isTokenExisting);
-    return isTokenExisting;
+
+    const isUserLogged = this._user !== null ? true : false;
+
+    this.redirect(isUserLogged);
+    return isUserLogged;
   }
 
   private redirect(cookie: boolean) {
